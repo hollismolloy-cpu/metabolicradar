@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Science — MetabolicRadar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+.sci-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:20px;align-items:start;margin-top:24px}
+.sci-nav{position:sticky;top:100px}
+.sci-nav-card{border:1px solid rgba(60,80,100,.1);border-radius:14px;background:var(--white);overflow:hidden}
+.sci-nav-head{padding:12px 16px;border-bottom:1px solid rgba(60,80,100,.08);display:flex;justify-content:space-between;align-items:center}
+.sci-nav-head span{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;opacity:.6}
+.sci-nav-pill{font-size:11px;font-weight:400;padding:4px 10px;border-radius:999px;border:1px solid rgba(60,80,100,.1);background:var(--fog)}
+.topic-btn{width:100%;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:transparent;border:0;border-top:1px solid rgba(60,80,100,.08);cursor:pointer;text-align:left;transition:background .15s}
+.topic-btn:first-of-type{border-top:0}
+.topic-btn:hover{background:rgba(60,80,100,.03)}
+.topic-btn[aria-selected="true"]{background:linear-gradient(135deg,rgba(61,122,138,.06),rgba(250,249,247,.8))}
+.topic-ico{width:38px;height:38px;border-radius:12px;border:1px solid rgba(60,80,100,.1);display:flex;align-items:center;justify-content:center;font-weight:500;color:var(--teal);flex:0 0 auto;font-size:12px;background:var(--white)}
+.topic-ico.a1c{background:linear-gradient(135deg,rgba(61,122,138,.12),rgba(184,150,90,.1))}
+.topic-ico.ros{background:linear-gradient(135deg,rgba(255,77,109,.1),rgba(109,91,255,.1))}
+.topic-ico.mito{background:linear-gradient(135deg,rgba(61,122,138,.1),rgba(109,91,255,.1))}
+.topic-info .tt{font-weight:500;font-size:14px;text-align:left;margin-bottom:2px}
+.topic-info .td{font-size:12px;color:var(--mist);line-height:1.45;text-align:left}
+.sci-panel{border:1px solid rgba(60,80,100,.1);border-radius:16px;background:var(--white);overflow:hidden}
+.sci-panel-top{padding:20px 24px;border-bottom:1px solid rgba(60,80,100,.08);background:linear-gradient(135deg,rgba(61,122,138,.04),var(--white))}
+.sci-panel-top h2{font-family:'Cormorant',serif;font-size:clamp(22px,3vw,32px);font-weight:400;margin-bottom:6px;letter-spacing:-.01em}
+.sci-byline{font-size:13px;color:var(--mist);line-height:1.5}
+.sci-panel-body{padding:20px 24px}
+.sci-grid2{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:16px;align-items:start;margin-bottom:20px}
+.sci-card{border:1px solid rgba(60,80,100,.1);border-radius:14px;background:var(--cream);padding:16px}
+.sci-card h3{font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:500;opacity:.6;margin-bottom:10px}
+.sci-card p,.sci-card li{font-size:14px;font-weight:300;line-height:1.65;color:var(--slate)}
+.sci-card ul{margin:8px 0;padding-left:18px}
+.sci-callout{border-radius:12px;padding:12px 14px;border:1px solid rgba(61,122,138,.15);background:rgba(61,122,138,.04);margin-top:12px}
+.sci-callout b{display:block;margin-bottom:5px;font-size:14px}
+.sci-callout p{font-size:13px;line-height:1.6;color:var(--slate)}
+.sci-meters{display:grid;gap:8px}
+.sci-meter-row{display:grid;grid-template-columns:140px minmax(0,1fr);gap:8px;align-items:center}
+.sci-meter-row span{font-size:13px;font-weight:400;color:var(--steel)}
+.sci-bar{height:8px;border-radius:999px;border:1px solid rgba(60,80,100,.1);background:rgba(60,80,100,.05);overflow:hidden}
+.sci-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--teal),var(--gold))}
+.sci-caption{border-left:3px solid rgba(61,122,138,.25);background:rgba(61,122,138,.04);padding:10px 12px;border-radius:0 10px 10px 0;margin:12px 0;font-size:13px;font-style:italic;color:var(--slate);line-height:1.6}
+.topicPanel{display:none}
+.topicPanel.active{display:block}
+@media(max-width:900px){.sci-layout{grid-template-columns:1fr}.sci-nav{position:relative;top:auto}.sci-grid2{grid-template-columns:1fr}.sci-meter-row{grid-template-columns:1fr;gap:4px}}
+</style>
+</head>
+<body>
+<nav class="mr-nav">
+  <a class="mr-wordmark" href="index.html">Metabolic<span>Radar</span></a>
+  <div class="mr-nav-links">
+    <a href="index.html">Home</a><a href="radar.html">The Radar</a><a href="science.html" class="active">Science</a><a href="testing.html">Testing</a><a href="work-with-me.html">Work With Me</a>
+    <a class="mr-nav-course" href="/mastery/" target="_blank">Metabolic Mastery ↗</a>
+  </div>
+  <a class="mr-nav-cta" href="work-with-me.html">Get Your Radar</a>
+</nav>
+<div class="mr-shell">
+
+  <div class="mr-hero">
+    <div class="mr-kicker">Metabolic Health · Science</div>
+    <h1>Why your markers matter —<br><em>and what they're telling you.</em></h1>
+    <p class="mr-lead">Three reads on the science behind the Radar. Start with the quick take. Go deeper if you want. Written for athletes and anyone who wants to understand what's happening inside.</p>
+    <div class="mr-actions">
+      <a class="mr-btn" href="work-with-me.html">Get Your Radar</a>
+      <a class="mr-btn ghost" href="radar.html">See Example Radar</a>
+      <a class="mr-btn ghost" href="testing.html">Testing Protocol</a>
+    </div>
+  </div>
+
+  <div class="sci-layout">
+    <nav class="sci-nav">
+      <div class="sci-nav-card">
+        <div class="sci-nav-head"><span>Topics</span><span class="sci-nav-pill">3 articles</span></div>
+        <button class="topic-btn" type="button" data-topic="a1c" aria-selected="true"><div class="topic-ico a1c">A1c</div><div class="topic-info"><div class="tt">HbA1c &amp; Glycation</div><p class="td">"Normal" can hide years of tissue damage.</p></div></button>
+        <button class="topic-btn" type="button" data-topic="ros" aria-selected="false"><div class="topic-ico ros">ROS</div><div class="topic-info"><div class="tt">Reactive Oxygen Species</div><p class="td">Cellular intensity: eustress vs distress.</p></div></button>
+        <button class="topic-btn" type="button" data-topic="mito" aria-selected="false"><div class="topic-ico mito">ATP</div><div class="topic-info"><div class="tt">Mitochondria</div><p class="td">The engine behind capacity and recovery.</p></div></button>
+      </div>
+    </nav>
+
+    <main>
+      <!-- A1C -->
+      <div class="topicPanel active sci-panel" id="topic-a1c" data-topic-panel="a1c">
+        <div class="sci-panel-top"><h2>HbA1c &amp; why you should care about glycation</h2><p class="sci-byline"><strong>By Hollis Molloy</strong> · Coaching metric, not a diagnosis · The iceberg beneath "normal" blood sugar numbers</p></div>
+        <div class="sci-panel-body">
+          <div class="sci-grid2">
+            <div class="sci-card"><h3>Quick take</h3><ul><li>A1c is a 90-day "surface" average — the deeper story is long-term glycation in slow-turnover tissues.</li><li>Performance losses can show up before "disease" thresholds do.</li><li>Treat rising A1c as an early warning signal you can act on with nutrition + consistency.</li></ul><div class="sci-callout"><b>Coach lens</b><p>If soreness lingers, recovery stalls, and output fades early, don't assume it's workout programming. It may be metabolic strain showing up first on the floor.</p></div></div>
+            <div class="sci-card"><h3>Relevance to coaching</h3><div class="sci-meters"><div class="sci-meter-row"><span>Performance + recovery</span><div class="sci-bar"><i style="width:92%"></i></div></div><div class="sci-meter-row"><span>Nutrition leverage</span><div class="sci-bar"><i style="width:96%"></i></div></div><div class="sci-meter-row"><span>Long-term health</span><div class="sci-bar"><i style="width:90%"></i></div></div><div class="sci-meter-row"><span>Programming decisions</span><div class="sci-bar"><i style="width:70%"></i></div></div></div><div class="sci-callout"><b>What to do</b><p>Reduce added sugar / liquid sugar exposure, tighten meal consistency, then re-test under the same conditions.</p></div></div>
+          </div>
+          <details><summary>Read full article<span class="det-plus">+</span></summary><div class="det-inner">
+            <p><strong>The iceberg beneath "normal" blood sugar numbers</strong></p>
+            <p>You're in your doctor's office, looking over your latest bloodwork. Your HbA1c comes back at 5.7, and the doctor smiles — "You're fine for now, but let's keep an eye on it." Still, something about it sticks with you. What does that number actually mean?</p>
+            <p>The surface may look calm, but below it, an iceberg of metabolic damage is quietly taking shape. Your A1c result is just the visible tip — a snapshot of sugar in the bloodstream. Beneath the surface lies the older ice of glycation — neurons, vascular walls, and structural proteins slowly accumulating damage over time.</p>
+            <p>Glycation happens when sugar binds to proteins, lipids, or DNA — warping their shape and function, often permanently. Once a molecule is glycated, there's no undoing it. Fast-renewing tissues like skin and liver can recover quickly, while slow-turnover systems — cartilage, nerve tissue, vascular endothelium — carry that burden for years.</p>
+            <p>A1c is the fingerprint of that chemistry. It's the share of your red blood cells' hemoglobin bonded with glucose — a 90-day snapshot. Clinically, anything below 5.7% is considered normal. In practice, we often see athletes closer to 5.1–5.3%, which may reflect better fuel regulation and nutritional tolerance.</p>
+            <p>Each blood sugar spike adds another microscopic layer of glycation your body has to repair. This process contributes to the vascular stiffness and metabolic wear that mark early chronic disease. At 5.7, medicine calls it prediabetes. At 6.4, diabetes. But glycation begins long before those lines get drawn.</p>
+            <p>High-fructose foods — soda, juice, sauces — elevate methylglyoxal, a highly reactive byproduct that rapidly binds to proteins and fats, forming crosslinks in slow-turnover tissues like collagen and neurons. That's damage you won't catch in a lab — but you'll feel it in your joints, your sleep, and your recovery.</p>
+            <p>Early metabolic decline shows up before the lab results — as soreness that lingers, recovery that stalls, and output that fades early. A coach who understands glycation can see what medicine misses: performance loss as the earliest biomarker of chronic disease. The iceberg isn't inevitable — it builds with poor choices. But it can melt with better ones.</p>
+          </div></details>
+          <details><summary>References<span class="det-plus">+</span></summary><div class="det-inner"><ul>
+            <li>WHO 2011 — Use of Glycated Haemoglobin (HbA1c): <a href="https://iris.who.int/server/api/core/bitstreams/db9b9d3d-f95e-4797-9d2b-c78dcef0133f/content" target="_blank" rel="noopener" style="color:var(--teal)">link</a></li>
+            <li>Singh 2014 — Advanced Glycation End Products: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3704564/" target="_blank" rel="noopener" style="color:var(--teal)">link</a></li>
+            <li>Gugliucci 2025 — Fructose-Methylglyoxal-AMPK: <a href="https://www.mdpi.com/2077-0383/14/10/3559" target="_blank" rel="noopener" style="color:var(--teal)">link</a></li>
+            <li>Lustig 2023 — "Alcohol without the buzz": <a href="https://www.sciencedirect.com/science/article/pii/S2161831322011073" target="_blank" rel="noopener" style="color:var(--teal)">link</a></li>
+          </ul></div></details>
+          <div style="margin-top:16px" class="mr-actions"><a class="mr-btn" href="radar.html">See the Radar →</a><a class="mr-btn ghost" href="testing.html">Ready to test?</a></div>
+        </div>
+      </div>
+
+      <!-- ROS -->
+      <div class="topicPanel sci-panel" id="topic-ros" data-topic-panel="ros">
+        <div class="sci-panel-top"><h2>Why you should care about ROS</h2><p class="sci-byline"><strong>The link between oxidative stress, adaptation, and performance</strong> · Cambridge, MA, 2025</p></div>
+        <div class="sci-panel-body">
+          <div class="sci-grid2">
+            <div class="sci-card"><h3>Quick take</h3><ul><li>ROS are "exhaust" — unavoidable — and <strong>dose</strong> determines whether they signal adaptation or cause damage.</li><li>Think: cellular intensity. Too little → no change. Too much, too long → breakdown.</li><li>You can't "lab test ROS" like glucose, but you see the fingerprints in outcomes and recovery.</li></ul><div class="sci-caption"><strong>Core framing:</strong> ROS aren't only damage; they're also a signal. The question is control.</div></div>
+            <div class="sci-card"><h3>Relevance to coaching</h3><div class="sci-meters"><div class="sci-meter-row"><span>Training dose / scaling</span><div class="sci-bar"><i style="width:94%"></i></div></div><div class="sci-meter-row"><span>Recovery management</span><div class="sci-bar"><i style="width:90%"></i></div></div><div class="sci-meter-row"><span>Fuel quality</span><div class="sci-bar"><i style="width:78%"></i></div></div><div class="sci-meter-row"><span>Long-term health</span><div class="sci-bar"><i style="width:86%"></i></div></div></div><div class="sci-callout"><b>What to do</b><p>Coach intensity like a dosage. If the athlete is chronically wrecked, you're likely living in "distress." Adjust load, sleep, fuel quality, re-test performance.</p></div></div>
+          </div>
+          <details><summary>Read full article<span class="det-plus">+</span></summary><div class="det-inner">
+            <p><strong>The link between oxidative stress, adaptation, and performance</strong></p>
+            <p><em>Cambridge, MA, 2025</em></p>
+            <p>At the end of day one at the MetFix Training Development Conference, I found myself at dinner with Bob Kaplan, Tomás Duraj, and Derek Lee. Thomás and Derek work for Dr. Thomas Seyfried's world renowned cancer research lab at Boston College. Bob is Head of Research at MetFix. Earlier, they had presented on mitochondrial dysfunction in cancer, connecting the dots between reactive oxygen species (ROS), mitochondrial damage, and cancer progression.</p>
+            <p>Bob had suggested ROS could be beneficial, even necessary. I asked him to explain. He described ROS as part of fuel signaling and insulin sensitivity. Thomás and Derek jumped in: moderate ROS is essential — it signals adaptation. Too much, too long, and it's destructive. We were all aligned: ROS wasn't just about damage. It was about balance.</p>
+            <p>Somewhere in that conversation, I had a realization: ROS might be the cellular version of intensity. Just like in the gym, there's a red line. Push too little, nothing changes. Push too hard, you break. Find the edge? That's where adaptation lives.</p>
+            <p>Reactive oxygen species are small, unstable molecules your body makes every day — superoxide, hydrogen peroxide, hydroxyl radicals. At controlled levels, they're signals: telling cells to grow stronger, mitochondria to multiply, immune systems to sharpen. At uncontrolled levels, they're wrecking balls: oxidizing LDL, tearing DNA, inflaming neurons. This dual nature caused the person who coined the term to divide it: (1) oxidative eustress (physiological and essential) and (2) oxidative distress (excessive and toxic).</p>
+            <div class="sci-caption">Sporadic ROS elevation (like from exercise or fasting) is helpful. Chronic elevation is harmful. Suppressing all ROS can be just as disruptive as having too much.</div>
+            <p>You can't walk into a diagnostic lab and get a neat ROS readout. They're too reactive, too fleeting. But you can see their shadow in the outcomes: improved work capacity, blood pressure improves, triglycerides drop, A1c normalizes, bones grow stronger, recovery speeds up.</p>
+            <p>Scaling isn't just about protecting joints or egos. It's protecting the cell. It's keeping ROS in the adaptive zone. ROS is the exhaust signal of human performance — the unseen byproduct that hints at whether the levers of food and training were pulled correctly.</p>
+            <h4 style="margin-top:16px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.65">Author note</h4>
+            <p>Hollis Molloy is a career coach and Certified CrossFit Level 4 Trainer who served on the CrossFit HQ Seminar Staff from 2007 to 2025 and has owned CrossFit Santa Cruz since 2008.</p>
+          </div></details>
+          <details><summary>References<span class="det-plus">+</span></summary><div class="det-inner"><ul>
+            <li>Sies et al. (2017): <a href="https://doi.org/10.1146/annurev-biochem-061516-045037" target="_blank" rel="noopener" style="color:var(--teal)">link</a></li>
+            <li>Powers et al. (2011): <a href="https://doi.org/10.1016/j.freeradbiomed.2010.12.009" target="_blank" rel="noopener" style="color:var(--teal)">link</a></li>
+            <li>Ristow et al. (2009): <a href="https://doi.org/10.1073/pnas.0903485106" target="_blank" rel="noopener" style="color:var(--teal)">link</a></li>
+            <li>Seyfried &amp; Shelton (2010): <a href="https://doi.org/10.1186/1743-7075-7-7" target="_blank" rel="noopener" style="color:var(--teal)">link</a></li>
+          </ul></div></details>
+          <div style="margin-top:16px" class="mr-actions"><a class="mr-btn" href="radar.html">See the Radar →</a><a class="mr-btn ghost" href="testing.html">Ready to test?</a></div>
+        </div>
+      </div>
+
+      <!-- MITO -->
+      <div class="topicPanel sci-panel" id="topic-mito" data-topic-panel="mito">
+        <div class="sci-panel-top"><h2>Why you should care about mitochondria</h2><p class="sci-byline"><strong>The engine behind human performance</strong> · Capacity lives or dies inside the mitochondria</p></div>
+        <div class="sci-panel-body">
+          <div class="sci-grid2">
+            <div class="sci-card"><h3>Quick take</h3><ul><li>Mitochondria are the engine that turns fuel into ATP — what you see as "fitness" is mitochondrial function expressed on the floor.</li><li>Metabolic flexibility is the ability to burn the right fuel at the right time; limited mitochondria = early overheating and faster collapse.</li><li>Performance is often the first stress test of metabolic health — coaches see engine problems before labs look "bad."</li></ul><div class="sci-callout"><b>Coach lens</b><p>The athlete who keeps mechanics crisp under fatigue likely has more oxidative capacity. The athlete who "redlines" early may be living on the wrong fuel.</p></div></div>
+            <div class="sci-card"><h3>Relevance to coaching</h3><div class="sci-meters"><div class="sci-meter-row"><span>Work capacity</span><div class="sci-bar"><i style="width:96%"></i></div></div><div class="sci-meter-row"><span>Recovery between bouts</span><div class="sci-bar"><i style="width:90%"></i></div></div><div class="sci-meter-row"><span>Nutrition strategy</span><div class="sci-bar"><i style="width:82%"></i></div></div><div class="sci-meter-row"><span>Health risk spotting</span><div class="sci-bar"><i style="width:86%"></i></div></div></div><div class="sci-callout"><b>What to do</b><p>Match training dose + recovery to the athlete. Build consistent aerobic base, avoid chronic "redline" living. Re-test outputs to verify the engine is improving.</p></div></div>
+          </div>
+          <details><summary>Read full article<span class="det-plus">+</span></summary><div class="det-inner">
+            <p><strong>The engine behind human performance</strong></p>
+            <p>I've seen it, and so have you. We coach the same workout all day. Some athletes thrive on the challenge, and others don't look as good. We second-guess ourselves: "Did I scale them right?" "Was that the right workout today?" But sometimes the answer is simpler. It's not the workout that needs a closer look, it's the athlete who is struggling. This is where mitochondria enter the conversation.</p>
+            <p>That is why at MetFix we claim, "We are the only commercial entity concerned with the care and feeding of mitochondria."</p>
+            <p>Capacity lives or dies inside the mitochondria. What we call fitness is really mitochondrial function expressed on the floor. Nearly every cell in your body is built around these engines. Each mitochondrion fires like a cylinder, turning the fuel you eat into ATP, the cell's universal energy currency.</p>
+            <p>Everything — fat, carbohydrate, and protein — gets broken down into acetyl-CoA, the molecule they burn to produce ATP. In metabolic terms, fat is the long, clean burn; carbohydrate is the fast, hot flame. Metabolic flexibility is the capacity to burn the right fuel at the right time. When mitochondria are efficient, fat supports the easy gears and glucose is reserved for speed. When they're limited, the engine runs too hot, too soon.</p>
+            <p>What we see as poor performance is often early metabolic disease. Long before fasting insulin climbs above 5 µIU/mL or the triglyceride-to-HDL ratio rises past 2.0, coaches can see the engine struggling on the gym floor. Adaptation is a fuel problem long before it's a fitness problem. They're trainable. Give them a consistent signal and they expand. Remove the signal and they retract. Coach the mitochondria, and you coach both performance and health.</p>
+          </div></details>
+          <details><summary>References<span class="det-plus">+</span></summary><div class="det-inner"><ul>
+            <li>San-Millán &amp; Brooks (2018): <a href="https://escholarship.org/uc/item/5cz1v976" target="_blank" rel="noopener" style="color:var(--teal)">link</a></li>
+            <li>Seyfried (Cancer as a metabolic disease): <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3941741/" target="_blank" rel="noopener" style="color:var(--teal)">link</a></li>
+            <li>Coyle (1995) fat metabolism during exercise: <a href="https://ocw.ehu.eus/file.php/154/jarduera_fisikoaren_eta_kirolaren_fisiologia/coyle-e-f-fat-metabolism-during-exercise-gatorade-sports-science-institute-1995.pdf" target="_blank" rel="noopener" style="color:var(--teal)">link</a></li>
+          </ul></div></details>
+          <div style="margin-top:16px" class="mr-actions"><a class="mr-btn" href="radar.html">See the Radar →</a><a class="mr-btn ghost" href="testing.html">Ready to test?</a></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="mr-note" style="margin-top:20px">This page is coaching and education only. Not medical diagnosis or treatment.</div>
+</div>
+<footer><div class="mr-footer-wrap">
+  <a class="mr-footer-wordmark" href="index.html">Metabolic<span>Radar</span></a>
+  <div class="mr-footer-links"><a href="radar.html">The Radar</a><a href="science.html">Science</a><a href="testing.html">Testing</a><a href="work-with-me.html">Work With Me</a><a class="mr-footer-course" href="/mastery/" target="_blank">Metabolic Mastery ↗</a><a href="https://www.crossfitsantacruz.com/metabolic-health" target="_blank">CrossFit Santa Cruz</a></div>
+  <span class="mr-footer-note">Coaching and education only. Not medical diagnosis or treatment.</span>
+</div></footer>
+<script>
+(function(){
+  const btns=Array.from(document.querySelectorAll('.topic-btn'));
+  const panels=Array.from(document.querySelectorAll('.topicPanel'));
+  function show(t){btns.forEach(b=>b.setAttribute('aria-selected',b.dataset.topic===t?'true':'false'));panels.forEach(p=>p.classList.toggle('active',p.dataset.topicPanel===t))}
+  btns.forEach(b=>b.addEventListener('click',()=>show(b.dataset.topic)));
+  const hash=(location.hash||'').replace('#','').trim();
+  show(['a1c','ros','mito'].includes(hash)?hash:'a1c');
+  window.addEventListener('hashchange',()=>{const h=(location.hash||'').replace('#','').trim();if(['a1c','ros','mito'].includes(h))show(h)});
+})();
+</script>
+</body>
+</html>

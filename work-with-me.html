@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Your Radar — MetabolicRadar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+.price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:28px}
+.price-card{position:relative;border:1px solid rgba(60,80,100,.1);border-radius:16px;background:var(--white);padding:28px;transition:border-color .2s,transform .2s;overflow:hidden}
+.price-card:hover{border-color:rgba(61,122,138,.3);transform:translateY(-2px)}
+.price-card::before{content:"";position:absolute;left:0;top:0;width:100%;height:4px;background:linear-gradient(90deg,var(--teal),var(--gold));opacity:.7}
+.price-card.featured{border-color:rgba(61,122,138,.25);background:linear-gradient(135deg,rgba(61,122,138,.04),var(--white))}
+.price-card.featured::before{opacity:1}
+.price-label{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;opacity:.85}
+.price-card h3{font-family:'Cormorant',serif;font-size:26px;font-weight:500;color:var(--ink);margin-bottom:12px;line-height:1.2}
+.price-desc{font-size:14px;font-weight:300;line-height:1.7;color:var(--slate);margin-bottom:16px}
+.price-list{list-style:none;padding:0;margin-bottom:16px}
+.price-list li{font-size:13px;font-weight:300;line-height:1.7;color:var(--steel);padding-left:16px;position:relative;margin-bottom:2px}
+.price-list li::before{content:"—";position:absolute;left:0;color:var(--teal);font-size:12px}
+.price-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding-top:12px;margin-top:12px;border-top:1px solid rgba(60,80,100,.08)}
+.price-note{font-size:12px;color:var(--mist)}
+.price-amount{font-family:'Cormorant',serif;font-size:32px;font-weight:400;color:var(--ink)}
+.price-actions{margin-top:16px}
+.how-panel{border:1px solid rgba(60,80,100,.1);border-radius:14px;background:var(--white);padding:20px;margin-top:20px}
+.how-panel .label{font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;opacity:.6;margin-bottom:14px}
+.how-flow{list-style:none;padding:0;display:grid;gap:12px}
+.how-flow li{display:flex;gap:12px;align-items:flex-start}
+.how-icon{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,rgba(61,122,138,.12),rgba(184,150,90,.1));border:1px solid rgba(60,80,100,.1);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-weight:500;color:var(--teal);font-size:13px}
+.how-flow b{display:block;font-size:14px;font-weight:500;margin-bottom:2px}
+.how-flow span{display:block;font-size:13px;font-weight:300;color:var(--mist);line-height:1.5}
+.rule{height:1px;background:rgba(60,80,100,.08);margin:40px 0}
+.section-h2{font-family:'Cormorant',serif;font-size:clamp(26px,3vw,40px);font-weight:400;color:var(--ink);margin-bottom:10px;letter-spacing:-.01em}
+.section-h2 em{font-style:italic;color:var(--teal)}
+.section-p{font-size:15px;font-weight:300;line-height:1.75;color:var(--slate);max-width:72ch;margin-bottom:20px}
+.contact-wrap{border:1px solid rgba(61,122,138,.2);border-radius:16px;background:linear-gradient(135deg,rgba(61,122,138,.04),rgba(184,150,90,.02));padding:32px;margin-top:20px}
+.contact-wrap h2{font-family:'Cormorant',serif;font-size:28px;font-weight:400;margin-bottom:8px}
+.contact-wrap p{font-size:14px;font-weight:300;line-height:1.7;color:var(--slate);margin-bottom:24px;max-width:56ch}
+.mr-form{display:grid;gap:14px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mr-form label{display:block;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(28,34,48,.55);margin-bottom:5px}
+.mr-form input,.mr-form select,.mr-form textarea{width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(60,80,100,.15);background:var(--white);font-size:14px;font-family:inherit;color:var(--ink);transition:border-color .15s;outline:none}
+.mr-form input:focus,.mr-form select:focus,.mr-form textarea:focus{border-color:var(--teal)}
+.mr-form textarea{resize:vertical;min-height:90px}
+#mr-form-success{display:none;text-align:center;padding:20px;background:rgba(61,122,138,.08);border:1px solid rgba(61,122,138,.2);border-radius:12px;font-size:15px;line-height:1.6;color:var(--ink)}
+@media(max-width:900px){.price-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="mr-nav">
+  <a class="mr-wordmark" href="index.html">Metabolic<span>Radar</span></a>
+  <div class="mr-nav-links">
+    <a href="index.html">Home</a><a href="radar.html">The Radar</a><a href="science.html">Science</a><a href="testing.html">Testing</a><a href="work-with-me.html" class="active">Work With Me</a>
+    <a class="mr-nav-course" href="/mastery/" target="_blank">Metabolic Mastery ↗</a>
+  </div>
+  <a class="mr-nav-cta" href="#contact">Get Your Radar</a>
+</nav>
+<div class="mr-shell">
+
+  <div class="mr-hero">
+    <div class="mr-kicker">Metabolic Health · Work With Me</div>
+    <h1>Get your markers.<br>Get your Radar.<br><em>Get a plan.</em></h1>
+    <p class="mr-lead">Bring your labs or let me coordinate everything. Either way you get a Radar, a report, and a clear picture of what's actually limiting you.</p>
+    <div class="mr-actions">
+      <a class="mr-btn ghost" href="radar.html">See Example Radar</a>
+      <a class="mr-btn ghost" href="science.html">Read the Science</a>
+    </div>
+  </div>
+
+  <div class="how-panel">
+    <div class="label">How it works</div>
+    <ul class="how-flow">
+      <li><div class="how-icon">1</div><div><b>Get your markers</b><span>Blood markers + DXA. DIY or I coordinate.</span></div></li>
+      <li><div class="how-icon">2</div><div><b>Get your Radar + report</b><span>I score your data and show you exactly what's limiting you.</span></div></li>
+      <li><div class="how-icon">→</div><div><b>Go further if you want</b><span>Add a deep dive session or ongoing monthly coaching.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="mr-eyebrow">Step 1 — Get your markers</div>
+  <h2 class="section-h2">Choose how you<br><em>want to get tested.</em></h2>
+  <p class="section-p">You need blood markers and a DXA scan. Source them yourself or let me coordinate everything. Either way the output is the same: Radar + report + a plan.</p>
+
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="price-label">DIY — you source everything</div>
+      <h3>You already have the data. Let's use it.</h3>
+      <p class="price-desc">If you've had bloodwork done recently — or you know how to get it — submit your results, answer a few questions, and I'll do the rest. Fast, remote-friendly, no scheduling required.</p>
+      <ul class="price-list">
+        <li>Blood markers from any provider — your doctor, Quest, Labcorp, anywhere</li>
+        <li>DXA from any imaging center you choose</li>
+        <li>Short intake form — context matters as much as the numbers</li>
+        <li>Your Radar + report + clear plan, delivered to you</li>
+      </ul>
+      <div class="price-row"><span class="price-note">Labs + DXA billed direct to provider</span><span class="price-amount">$100</span></div>
+      <div class="price-actions"><a class="mr-btn" href="#contact">Get Started</a></div>
+    </div>
+    <div class="price-card featured">
+      <div class="price-label">Concierge — I handle the logistics</div>
+      <h3>Show up. I'll handle everything else.</h3>
+      <p class="price-desc">I order the labs, schedule the DXA van, and you come to me. No gaps, no guesswork — just a complete picture of what's going on inside.</p>
+      <ul class="price-list">
+        <li>Lab requisition handled — you just go get drawn</li>
+        <li>DXA van scheduled — you come to me for the scan</li>
+        <li>Short intake form — training, sleep, stress, context</li>
+        <li>Your Radar + report + clear plan, delivered to you</li>
+      </ul>
+      <div class="price-row"><span class="price-note">Labs + DXA billed direct to provider</span><span class="price-amount">$200</span></div>
+      <div class="price-actions"><a class="mr-btn" href="#contact">Get Started</a></div>
+    </div>
+  </div>
+  <p style="margin-top:12px;font-size:13px;color:var(--mist);line-height:1.55">Labs and DXA are paid directly to the service provider. What you're paying for here is the Radar, the report, and my time scoring and interpreting your data.</p>
+
+  <div class="rule"></div>
+
+  <div class="mr-eyebrow">Step 2 — Go further</div>
+  <h2 class="section-h2">Want more than<br><em>a report?</em></h2>
+  <p class="section-p">Both options below require a Radar first. The deep dive turns your report into a personal plan. Coaching keeps you accountable month after month.</p>
+
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="price-label">Add-on — one time</div>
+      <h3>Sit down with me. Make sense of your data.</h3>
+      <p class="price-desc">We go through your Radar together — I explain what each score means for you specifically, we talk through your goals, and you leave with a personalized plan built around your limiting pillar.</p>
+      <ul class="price-list">
+        <li>Full walkthrough of your Radar + report</li>
+        <li>Discussion of your goals and what's in the way</li>
+        <li>Personalized action plan — training, nutrition, recovery</li>
+      </ul>
+      <div class="price-row"><span class="price-note">Requires Radar — add to any path</span><span class="price-amount">$200</span></div>
+      <div class="price-actions"><a class="mr-btn" href="#contact">Book a Session</a></div>
+    </div>
+    <div class="price-card">
+      <div class="price-label">Program — ongoing</div>
+      <h3>Know what to do. Have someone make sure you do it.</h3>
+      <p class="price-desc">Monthly coaching gives you two check-ins per month where we review what's working, what isn't, and refine the plan. The plan evolves as you do.</p>
+      <ul class="price-list">
+        <li>Requires an active Radar — purchased separately</li>
+        <li>Two meetings per month — review, adjust, refine</li>
+        <li>Plan built around your data, not a template</li>
+      </ul>
+      <div class="price-row"><span class="price-note">Radar purchased separately</span><span class="price-amount">$300<span style="font-size:16px;font-family:'DM Sans',sans-serif;font-weight:300"> / mo</span></span></div>
+      <div class="price-actions"><a class="mr-btn" href="#contact">Book a Session</a></div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="mr-eyebrow">Testing protocol</div>
+  <h2 class="section-h2">Before you test.</h2>
+  <p class="section-p">Results are only meaningful if they're repeatable. Standardize conditions before every draw.</p>
+  <details><summary>Prep checklist<span class="det-plus">+</span></summary><div class="det-inner"><ul><li>Fast 8–12 hours before your blood draw</li><li>No hard training 24–48 hours prior</li><li>No alcohol 24 hours prior</li><li>Normal hydration — don't over-hydrate or restrict</li><li>Don't test during acute illness or active injury</li><li>Keep medications and supplements consistent</li><li>Record sleep quality, stress, and recent training load</li></ul><div class="det-callout">Blood pressure: measure seated, relaxed, average at least two readings taken a few minutes apart.</div></div></details>
+  <details><summary>Required markers<span class="det-plus">+</span></summary><div class="det-inner"><p><strong>Core labs:</strong></p><ul><li>Fasting insulin</li><li>HbA1c</li><li>Triglycerides + HDL (TG:HDL ratio)</li><li>ApoB</li><li>hs-CRP</li></ul><p style="margin-top:12px"><strong>Vitals:</strong></p><ul><li>Blood pressure (seated, averaged)</li><li>Resting heart rate</li></ul><p style="margin-top:12px"><strong>Structure + reserve (Concierge path):</strong></p><ul><li>DXA: ALMI, VAT, body fat %, bone mineral density / T-score</li><li>Grip strength (dynamometer)</li></ul></div></details>
+  <details><summary>Where to get labs and DXA<span class="det-plus">+</span></summary><div class="det-inner"><p>For blood markers: your physician, Quest, Labcorp, or a direct-to-consumer service. You need raw numeric values — not just "normal / abnormal."</p><ul><li>Request the specific markers above — not all standard panels include fasting insulin or ApoB</li><li>Download your actual lab report with numeric values</li></ul><p style="margin-top:10px">For DXA: imaging centers, university sports facilities, some gyms. If you can't find one, the Concierge path includes DXA van scheduling.</p></div></details>
+
+  <div class="rule"></div>
+
+  <!-- CONTACT -->
+  <div class="contact-wrap" id="contact">
+    <h2>Ready to start?</h2>
+    <p>Not sure which path is right? Just reach out. Tell me where you are — what you have, what you want to know — and we'll figure out the right starting point together.</p>
+    <form class="mr-form" id="mrContactForm">
+      <div class="form-row">
+        <div><label for="mr-name">Your name</label><input type="text" id="mr-name" name="name" placeholder="Your name" required></div>
+        <div><label for="mr-email">Email address</label><input type="email" id="mr-email" name="email" placeholder="you@example.com" required></div>
+      </div>
+      <div>
+        <label for="mr-path">Which path interests you?</label>
+        <select id="mr-path" name="path">
+          <option value="">— Select one —</option>
+          <option value="diy">DIY Radar Report ($100)</option>
+          <option value="concierge">Concierge ($200)</option>
+          <option value="deep-dive">Deep Dive Session ($200)</option>
+          <option value="coaching">Monthly Coaching ($300/mo)</option>
+          <option value="not-sure">Not sure yet</option>
+        </select>
+      </div>
+      <div><label for="mr-message">Tell me where you are</label><textarea id="mr-message" name="message" placeholder="What you train, what you want to know, any labs you already have..."></textarea></div>
+      <div><button type="submit" class="mr-btn">Send message →</button></div>
+    </form>
+    <div id="mr-form-success"><strong>Message sent.</strong><br>I'll be in touch within 24–48 hours. In the meantime, check out the <a href="radar.html" style="color:var(--teal)">example Radar</a> to see what your report will look like.</div>
+    <div class="mr-note" style="margin-top:16px">Coaching and education only. Not medical diagnosis or treatment. Lab ordering coordination may involve third-party services; you can always use your own physician and preferred providers.</div>
+  </div>
+
+</div>
+<footer><div class="mr-footer-wrap">
+  <a class="mr-footer-wordmark" href="index.html">Metabolic<span>Radar</span></a>
+  <div class="mr-footer-links"><a href="radar.html">The Radar</a><a href="science.html">Science</a><a href="testing.html">Testing</a><a href="work-with-me.html">Work With Me</a><a class="mr-footer-course" href="/mastery/" target="_blank">Metabolic Mastery ↗</a><a href="https://www.crossfitsantacruz.com/metabolic-health" target="_blank">CrossFit Santa Cruz</a></div>
+  <span class="mr-footer-note">Coaching and education only. Not medical diagnosis or treatment.</span>
+</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+(function(){
+  const EJS_PUBLIC  = 'Mh1M3RL9mlBCRP7rW';
+  const EJS_SERVICE = 'service_xi7mqei';
+  const EJS_TEMPLATE= 'template_v70xz34';
+
+  emailjs.init({ publicKey: EJS_PUBLIC });
+
+  document.getElementById('mrContactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    const params = {
+      from_name:    document.getElementById('mr-name').value,
+      from_email:   document.getElementById('mr-email').value,
+      path_interest:document.getElementById('mr-path').value,
+      message:      document.getElementById('mr-message').value,
+    };
+
+    emailjs.send(EJS_SERVICE, EJS_TEMPLATE, params)
+      .then(() => {
+        document.getElementById('mrContactForm').style.display = 'none';
+        document.getElementById('mr-form-success').style.display = 'block';
+      })
+      .catch(() => {
+        btn.textContent = 'Send message →';
+        btn.disabled = false;
+        btn.insertAdjacentHTML('afterend', '<p style="margin-top:10px;font-size:13px;color:#c0392b">Something went wrong — please try again or email hollismolloy@gmail.com directly.</p>');
+      });
+  });
+})();
+</script>
+</body>
+</html>

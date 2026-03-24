@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 1 — Protein Foundations | Metabolic Mastery</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared.css">
+<link rel="stylesheet" href="mastery.css">
+  <style>
+    /* ── Protein compare table ── */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: .875rem 0;
+    }
+    @media(max-width:480px) { .compare-grid { grid-template-columns: 1fr; } }
+    .cmp-card { border-radius: 8px; padding: .875rem; font-size: 13px; }
+    .cmp-card.good { background: #EDF7E8; }
+    .cmp-card.bad  { background: #FBE9E9; }
+    .cmp-head { font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .5rem; }
+    .cmp-card.good .cmp-head { color: #2e6b24; }
+    .cmp-card.bad  .cmp-head { color: #8b2020; }
+    .cmp-row { display: flex; align-items: flex-start; gap: 7px; margin-bottom: 4px; color: #444; line-height: 1.45; }
+    .cmp-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .cmp-card.good .cmp-dot { background: #3d8030; }
+    .cmp-card.bad  .cmp-dot { background: #b03030; }
+    /* Sources strip */
+    .sources-strip {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: #F4F1EC;
+    }
+    .sources-label {
+      font-size: 10px; font-weight: 500; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: .625rem;
+    }
+    .sources-flex { display: flex; flex-wrap: wrap; gap: 6px; }
+    .src-chip {
+      font-size: 12px; padding: 3px 10px;
+      border-radius: 20px; background: #fff;
+      border: 1px solid var(--border); color: var(--text-2);
+    }
+    .src-chip strong { font-weight: 500; color: var(--navy); }
+    /* Level pills override for 4-col */
+    .pill-grid-4 { grid-template-columns: repeat(2,1fr); }
+  </style>
+</head>
+<body data-week="w1">
+
+<!-- ── Nav ── -->
+<nav class="mr-nav">
+  <a class="mr-wordmark" href="../index.html">Metabolic<span>Radar</span></a>
+  <div class="mr-nav-links">
+    <a href="../index.html">Home</a>
+    <a href="../radar.html">The Radar</a>
+    <a href="../science.html">Science</a>
+    <a href="../testing.html">Testing</a>
+    <a href="index.html" class="active">Mastery</a>
+  </div>
+  <a class="mr-nav-cta" href="../work-with-me.html">Get Your Radar</a>
+</nav>
+
+<!-- ── Breadcrumb ── -->
+<div class="week-bar">
+  <div class="week-bar-inner">
+    <a href="index.html">Metabolic Mastery</a>
+    <span class="week-bar-sep">›</span>
+    <span class="week-bar-current">Week 1 — Protein Foundations</span>
+  </div>
+</div>
+
+<!-- ── Week selector ── -->
+<div style="border-bottom:1px solid var(--border); background:var(--bg-card);">
+  <div class="week-nav">
+    <a class="week-pill" href="index.html" data-week="0"><span class="wp-num">KO</span><span class="wp-label">Kickoff</span></a>
+    <a class="week-pill" href="week-1.html" data-week="1"><span class="wp-num">W1</span><span class="wp-label">Protein</span></a>
+    <a class="week-pill" href="week-2.html" data-week="2"><span class="wp-num">W2</span><span class="wp-label">Precision</span></a>
+    <a class="week-pill" href="week-3.html" data-week="3"><span class="wp-num">W3</span><span class="wp-label">Carbs</span></a>
+    <a class="week-pill" href="week-4.html" data-week="4"><span class="wp-num">W4</span><span class="wp-label">Macros</span></a>
+    <a class="week-pill" href="week-5.html" data-week="5"><span class="wp-num">W5</span><span class="wp-label">Mastery</span></a>
+    <a class="week-pill" href="week-6.html" data-week="6"><span class="wp-num">W6</span><span class="wp-label">Flexibility</span></a>
+    <a class="week-pill" href="week-7.html" data-week="7"><span class="wp-num">W7</span><span class="wp-label">Fasting</span></a>
+    <a class="week-pill" href="week-8.html" data-week="8"><span class="wp-num">W8</span><span class="wp-label">Saboteurs</span></a>
+    <a class="week-pill" href="week-9.html" data-week="9"><span class="wp-num">W9</span><span class="wp-label">Fats</span></a>
+    <a class="week-pill" href="week-10.html" data-week="10"><span class="wp-num">W10</span><span class="wp-label">Signal</span></a>
+    <a class="week-pill" href="week-11.html" data-week="11"><span class="wp-num">W11</span><span class="wp-label">Cup Prep</span></a>
+    <a class="week-pill" href="week-12.html" data-week="12"><span class="wp-num">W12</span><span class="wp-label">Sustain</span></a>
+    <a class="week-pill" href="closing.html" data-week="13"><span class="wp-num">CUP</span><span class="wp-label">Closing</span></a>
+  </div>
+</div>
+
+<!-- ── Main content ── -->
+<div class="page-wrap">
+  <div class="two-col">
+
+    <!-- ── Left column ── -->
+    <div class="main-col">
+
+      <!-- Page header -->
+      <div class="fade-in">
+        <div class="eyebrow">Week 1 of 12 &nbsp;·&nbsp; Metabolic Mastery 2025</div>
+        <h1 class="page-title">Protein <em>foundations.</em></h1>
+        <p class="page-sub">Before we optimize anything else — carbs, fats, timing, recovery — we need to know exactly how much protein your body requires to perform. This week you find that number and start building the habit of hitting it.</p>
+      </div>
+
+      <!-- Coach video -->
+      <div class="video-wrap fade-in">
+        <div class="video-label">Coach intro — Week 1</div>
+        <div class="video-ratio">
+          <!--
+            REPLACE THIS PLACEHOLDER with your Loom or YouTube embed:
+            <iframe src="https://www.loom.com/embed/YOUR_ID" allowfullscreen></iframe>
+          -->
+          <div class="video-placeholder">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="video-placeholder-text">Paste your Loom or YouTube embed here</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TOOL: Protein calculator ── -->
+      <div class="tool-card fade-in">
+        <div class="tool-head">
+          <div class="tool-head-left">
+            <div class="tool-eyebrow">Week 1 Tool</div>
+            <div class="tool-name">Protein target calculator</div>
+          </div>
+          <span class="tool-badge">Interactive</span>
+        </div>
+        <div class="tool-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+
+            <!-- Inputs -->
+            <div>
+              <div class="slider-field">
+                <div class="slider-top">
+                  <span class="slider-label">Body weight</span>
+                  <span class="slider-val" id="bw-val">175 lb</span>
+                </div>
+                <input type="range" id="bw" min="100" max="280" value="175" step="1" oninput="calcProtein()">
+              </div>
+              <div class="slider-field">
+                <div class="slider-top">
+                  <span class="slider-label">Body fat %</span>
+                  <span class="slider-val" id="bf-val">18%</span>
+                </div>
+                <input type="range" id="bf" min="5" max="40" value="18" step="1" oninput="calcProtein()">
+                <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-3);margin-top:4px">
+                  <span>Athletic 5%</span><span>Average 25%</span><span>High 40%</span>
+                </div>
+              </div>
+              <div class="slider-field">
+                <div class="slider-top">
+                  <span class="slider-label">Training load</span>
+                </div>
+                <div class="pill-grid pill-grid-4" id="level-pills">
+                  <div class="sel-pill active" data-factor="0.7" onclick="selectLevel(this)">
+                    <span class="pill-val">0.7g</span>
+                    <span class="pill-label">Moderate 3–4×</span>
+                  </div>
+                  <div class="sel-pill" data-factor="0.8" onclick="selectLevel(this)">
+                    <span class="pill-val">0.8g</span>
+                    <span class="pill-label">High intensity 4–5×</span>
+                  </div>
+                  <div class="sel-pill" data-factor="0.9" onclick="selectLevel(this)">
+                    <span class="pill-val">0.9g</span>
+                    <span class="pill-label">Peak / mass</span>
+                  </div>
+                  <div class="sel-pill" data-factor="1.0" onclick="selectLevel(this)">
+                    <span class="pill-val">1.0g</span>
+                    <span class="pill-label">Two-a-days</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Result -->
+            <div class="result-box" style="display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div class="result-label">Daily protein target</div>
+                <div class="result-number">
+                  <span id="result-num">123</span>
+                  <span class="result-unit">g</span>
+                </div>
+                <div class="result-sub" id="result-sub">per day · moderate training</div>
+              </div>
+              <div>
+                <div class="result-divider"></div>
+                <div class="result-row">
+                  <span class="result-row-label">Lean body mass</span>
+                  <span class="result-row-val" id="lbm-val">144 lb</span>
+                </div>
+                <div class="result-row">
+                  <span class="result-row-label">Factor</span>
+                  <span class="result-row-val gold" id="factor-val">0.7g / lb LBM</span>
+                </div>
+                <div class="result-row">
+                  <span class="result-row-label">Per meal (3–4)</span>
+                  <span class="result-row-val" id="per-meal-val">31–41g</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /grid -->
+        </div><!-- /tool-body -->
+
+        <!-- Food sources strip -->
+        <div class="sources-strip">
+          <div class="sources-label">Hit one meal's worth with</div>
+          <div class="sources-flex" id="sources-flex"></div>
+        </div>
+      </div><!-- /tool-card -->
+
+      <!-- ── Concept accordion ── -->
+      <div class="eyebrow fade-in" style="margin-top:2rem;">The science</div>
+
+      <div class="concept-grid fade-in">
+        <div class="concept-card">
+          <div class="cc-icon">🥩</div>
+          <div class="cc-title">Builds muscle</div>
+          <div class="cc-body">Provides amino acids for building and repairing lean tissue after every training session.</div>
+        </div>
+        <div class="concept-card">
+          <div class="cc-icon">🔥</div>
+          <div class="cc-title">Burns fat</div>
+          <div class="cc-body">Stimulates glucagon — the hormone that signals your body to use stored fat for energy.</div>
+        </div>
+        <div class="concept-card">
+          <div class="cc-icon">✦</div>
+          <div class="cc-title">Keeps you full</div>
+          <div class="cc-body">Activates satiety hormones in the gut and brain. You eat less, crave less, focus more.</div>
+        </div>
+      </div>
+
+      <div class="accordion fade-in">
+
+        <div class="acc-item">
+          <button class="acc-trigger open" onclick="accToggle(this)">
+            <div class="acc-trigger-left">
+              <div class="acc-n">1</div>
+              <span class="acc-title">Why lean body mass — not total weight?</span>
+            </div>
+            <div class="acc-arrow"><svg viewBox="0 0 10 10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5L5 6.5L8 3.5"/></svg></div>
+          </button>
+          <div class="acc-panel open">
+            <div class="acc-content">
+              <p>Your protein requirement is tied to your <strong>lean body mass</strong> — the weight of your muscles, organs, and bones, not your fat tissue. Fat has almost no protein turnover. It does not need feeding.</p>
+              <p>Using total body weight overestimates the target for someone carrying more fat, and underestimates it for a leaner athlete. The lean mass calculation gives you the real number.</p>
+              <div class="callout"><strong>Example:</strong> A 200 lb athlete at 25% body fat has 150 lb of lean mass. Their target at 0.8g/lb is 120g — not 160g based on total weight.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-trigger" onclick="accToggle(this)">
+            <div class="acc-trigger-left">
+              <div class="acc-n">2</div>
+              <span class="acc-title">What happens when protein is too low?</span>
+            </div>
+            <div class="acc-arrow"><svg viewBox="0 0 10 10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5L5 6.5L8 3.5"/></svg></div>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-content">
+              <div class="compare-grid">
+                <div class="cmp-card good">
+                  <div class="cmp-head">Adequate protein</div>
+                  <div class="cmp-row"><div class="cmp-dot"></div>Muscle preserved or built</div>
+                  <div class="cmp-row"><div class="cmp-dot"></div>Fat is the primary fuel</div>
+                  <div class="cmp-row"><div class="cmp-dot"></div>Recovery is faster</div>
+                  <div class="cmp-row"><div class="cmp-dot"></div>Hunger stays manageable</div>
+                </div>
+                <div class="cmp-card bad">
+                  <div class="cmp-head">Insufficient protein</div>
+                  <div class="cmp-row"><div class="cmp-dot"></div>Body cannibalizes muscle</div>
+                  <div class="cmp-row"><div class="cmp-dot"></div>Fat burning stalls</div>
+                  <div class="cmp-row"><div class="cmp-dot"></div>Recovery drags</div>
+                  <div class="cmp-row"><div class="cmp-dot"></div>Cravings spike</div>
+                </div>
+              </div>
+              <p>Training with insufficient protein is like renovating a house while simultaneously demolishing parts of it. The harder you train, the more costly it is to undereat protein.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-trigger" onclick="accToggle(this)">
+            <div class="acc-trigger-left">
+              <div class="acc-n">3</div>
+              <span class="acc-title">How to spread protein across the day</span>
+            </div>
+            <div class="acc-arrow"><svg viewBox="0 0 10 10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5L5 6.5L8 3.5"/></svg></div>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-content">
+              <p>Your body can use roughly <strong>30–40g per meal</strong> for muscle protein synthesis. Eating 150g at once does not produce five times the effect — the excess is oxidized. Spreading your target across 3–4 meals maximizes the anabolic signal.</p>
+              <div class="callout"><strong>Rule:</strong> Build every meal around a palm-sized complete protein source. Aim for 30–45g per meal. Breakfast counts as much as any other meal.</div>
+              <p>Complete proteins — containing all 9 essential amino acids — come from meat, fish, poultry, eggs, and dairy. Plant sources generally need combining to achieve completeness.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-trigger" onclick="accToggle(this)">
+            <div class="acc-trigger-left">
+              <div class="acc-n">4</div>
+              <span class="acc-title">Measuring accurately — why it matters</span>
+            </div>
+            <div class="acc-arrow"><svg viewBox="0 0 10 10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5L5 6.5L8 3.5"/></svg></div>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-content">
+              <p>A tablespoon of peanut butter measured by volume versus weight can differ by 20%. Over a week, small errors compound into a significant gap between what you think you are eating and what you actually are.</p>
+              <p><strong>Weigh raw, not cooked.</strong> Chicken breast loses 25–30% of its weight cooking. Log cooked weight and you are systematically underestimating protein by nearly a third.</p>
+              <div class="callout"><strong>This week's standard:</strong> Use a kitchen scale. Log every protein source in grams, raw weight. Precision on protein is non-negotiable this week — everything else can flex.</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /accordion -->
+
+      <!-- ── Challenge checklist ── -->
+      <div class="eyebrow fade-in" style="margin-top:2rem;">This week's challenge</div>
+
+      <div class="challenge-wrap fade-in">
+        <div class="challenge-head">
+          <div class="challenge-head-left">
+            <div class="ch-eyebrow">Week 1 Challenge</div>
+            <div class="ch-title">Five things. Seven days.</div>
+          </div>
+          <div class="ring-group">
+            <svg class="ring-svg" width="46" height="46" viewBox="0 0 46 46">
+              <circle class="ring-bg" cx="23" cy="23" r="20"/>
+              <circle class="ring-fill" id="ring" cx="23" cy="23" r="20"/>
+            </svg>
+            <div class="ring-count-wrap">
+              <div class="ring-count" id="ring-count">0/5</div>
+              <div class="ring-count-label">Done</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ch-list">
+          <div class="ch-item">
+            <div class="ch-check"><div class="check-icon"><svg viewBox="0 0 14 14"><path d="M2.5 7L5.5 10L11.5 4"/></svg></div></div>
+            <div class="ch-content">
+              <div class="ch-item-title">Calculate your lean body mass and protein target</div>
+              <div class="ch-item-sub">Use the calculator above. Write the number down. This is your anchor for the entire program.</div>
+            </div>
+            <span class="ch-tag tag-action">Action</span>
+          </div>
+          <div class="ch-item">
+            <div class="ch-check"><div class="check-icon"><svg viewBox="0 0 14 14"><path d="M2.5 7L5.5 10L11.5 4"/></svg></div></div>
+            <div class="ch-content">
+              <div class="ch-item-title">Log every meal for 7 days — no guessing, no eyeballing</div>
+              <div class="ch-item-sub">Use Beyond the Whiteboard or any food tracking app. Accuracy matters more than perfection.</div>
+            </div>
+            <span class="ch-tag tag-habit">Habit</span>
+          </div>
+          <div class="ch-item">
+            <div class="ch-check"><div class="check-icon"><svg viewBox="0 0 14 14"><path d="M2.5 7L5.5 10L11.5 4"/></svg></div></div>
+            <div class="ch-content">
+              <div class="ch-item-title">Weigh at least one protein source raw before cooking</div>
+              <div class="ch-item-sub">Chicken, beef, fish — pick one this week and measure raw on a scale. Notice the difference from your estimate.</div>
+            </div>
+            <span class="ch-tag tag-action">Action</span>
+          </div>
+          <div class="ch-item">
+            <div class="ch-check"><div class="check-icon"><svg viewBox="0 0 14 14"><path d="M2.5 7L5.5 10L11.5 4"/></svg></div></div>
+            <div class="ch-content">
+              <div class="ch-item-title">Attend Thursday check-in at 10 AM</div>
+              <div class="ch-item-sub">In person at CrossFit Santa Cruz, or via Google Meets. Bring your protein number. This is where it gets personal.</div>
+            </div>
+            <span class="ch-tag tag-social">Check-in</span>
+          </div>
+          <div class="ch-item">
+            <div class="ch-check"><div class="check-icon"><svg viewBox="0 0 14 14"><path d="M2.5 7L5.5 10L11.5 4"/></svg></div></div>
+            <div class="ch-content">
+              <div class="ch-item-title">Watch: Leah Polaski's 2023 Nutrition Lecture</div>
+              <div class="ch-item-sub">Understand why protein is the foundation of metabolic health. Link in the resources panel →</div>
+            </div>
+            <span class="ch-tag tag-habit">Resource</span>
+          </div>
+        </div>
+
+        <div class="complete-bar" id="complete-bar">
+          <div class="complete-check"><svg viewBox="0 0 20 20"><path d="M3 10L7.5 14.5L17 5.5"/></svg></div>
+          <div>
+            <div class="complete-title">Week 1 complete.</div>
+            <div class="complete-sub">Every challenge done. Week 2 unlocks next.</div>
+          </div>
+        </div>
+
+        <div class="text-muted" id="ch-hint" style="text-align:center;font-size:12px;padding:.625rem;">Tap each challenge to mark it complete</div>
+
+        <div class="coach-note">
+          <div class="coach-av">
+            <img src="../hollis.jpg" alt="Hollis" onerror="this.style.display='none';this.parentElement.textContent='H'">
+          </div>
+          <div>
+            <div class="coach-name">Hollis Molloy</div>
+            <div class="coach-msg">"Do not worry about carbs or fats this week. One variable at a time. Get the protein number right and log it every day. That is the entire job."</div>
+          </div>
+        </div>
+      </div><!-- /challenge-wrap -->
+
+    </div><!-- /main-col -->
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+
+      <!-- Progress -->
+      <div class="sidebar-section fade-in">
+        <div class="sidebar-label">Your progress</div>
+        <div class="sidebar-title">Week 1 of 12</div>
+        <div class="progress-track">
+          <div class="progress-fill" id="sidebar-progress" style="width:0%"></div>
+        </div>
+        <div class="progress-label" id="sidebar-progress-label">0 of 5 complete</div>
+      </div>
+
+      <!-- Next week -->
+      <div class="sidebar-section fade-in">
+        <div class="sidebar-label">Coming next</div>
+        <div class="sidebar-title">Week 2 — Precision</div>
+        <div class="sidebar-body">Tighten your tracking, raise your standard of accuracy, and build the habits that make hitting your target feel automatic.</div>
+        <div style="margin-top:.875rem;">
+          <a href="week-2.html" style="font-size:13px;color:var(--accent);font-weight:500;">Week 2 → </a>
+        </div>
+      </div>
+
+      <!-- Resources -->
+      <div class="sidebar-section fade-in">
+        <div class="sidebar-label">Resources</div>
+        <a class="resource-link" href="#" target="_blank" rel="noopener">
+          <div class="resource-icon">▶</div>
+          Leah Polaski — Nutrition Lecture 2023
+        </a>
+        <a class="resource-link" href="#" target="_blank" rel="noopener">
+          <div class="resource-icon">▶</div>
+          Dr. Robert Lustig — Macronutrient balance
+        </a>
+        <a class="resource-link" href="#" target="_blank" rel="noopener">
+          <div class="resource-icon">📄</div>
+          CrossFit Journal — Zone Diet overview
+        </a>
+        <a class="resource-link" href="https://meet.google.com/bmx-xwje-qec" target="_blank" rel="noopener">
+          <div class="resource-icon">📅</div>
+          Thursday check-in — Google Meets
+        </a>
+      </div>
+
+      <!-- Check-in form link -->
+      <div class="sidebar-section fade-in" style="background:var(--navy);border-color:var(--navy);">
+        <div class="sidebar-label" style="color:rgba(255,255,255,.45);">Weekly check-in</div>
+        <div class="sidebar-title" style="color:#fff;">Submit your Week 1 log</div>
+        <div class="sidebar-body" style="color:rgba(255,255,255,.6);margin-bottom:.875rem;">Share your wins, questions, and protein numbers before Thursday at 10 AM.</div>
+        <a href="#" style="display:inline-block;padding:.5rem 1rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius);font-size:13px;color:#fff;font-weight:500;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.12)'">
+          Submit check-in →
+        </a>
+      </div>
+
+    </aside>
+
+  </div><!-- /two-col -->
+</div><!-- /page-wrap -->
+
+<!-- ── Footer ── -->
+<footer><div class="mr-footer-wrap">
+  <a class="mr-footer-wordmark" href="../index.html">Metabolic<span>Radar</span></a>
+  <div class="mr-footer-links">
+    <a href="../radar.html">The Radar</a>
+    <a href="../science.html">Science</a>
+    <a href="../testing.html">Testing</a>
+    <a href="../work-with-me.html">Work With Me</a>
+    <a href="index.html" class="mr-footer-course">Metabolic Mastery</a>
+    <a href="https://www.crossfitsantacruz.com/metabolic-health" target="_blank">CrossFit Santa Cruz</a>
+  </div>
+  <span class="mr-footer-note">Coaching and education only. Not medical diagnosis or treatment.</span>
+</div></footer>
+
+<script>
+/* ── Protein calculator ── */
+let currentFactor = 0.7;
+let currentLabel = 'moderate training';
+
+const SOURCES = [
+  { name: 'Chicken breast', per: 31, unit: '100g' },
+  { name: 'Salmon fillet',  per: 25, unit: '100g' },
+  { name: 'Eggs',           per: 6,  unit: 'each'  },
+  { name: 'Greek yogurt',   per: 17, unit: 'cup'   },
+  { name: 'Ground beef',    per: 26, unit: '100g'  },
+  { name: 'Cottage cheese', per: 14, unit: 'cup'   },
+];
+
+function selectLevel(el) {
+  document.querySelectorAll('#level-pills .sel-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  currentFactor = parseFloat(el.dataset.factor);
+  currentLabel = el.querySelector('.pill-label').textContent.toLowerCase();
+  calcProtein();
+}
+
+function calcProtein() {
+  const bw = parseInt(document.getElementById('bw').value);
+  const bf = parseInt(document.getElementById('bf').value);
+  document.getElementById('bw-val').textContent = bw + ' lb';
+  document.getElementById('bf-val').textContent = bf + '%';
+
+  const lbm = Math.round(bw * (1 - bf / 100));
+  const target = Math.round(lbm * currentFactor);
+  const mealLow = Math.round(target / 4);
+  const mealHigh = Math.round(target / 3);
+
+  const numEl = document.getElementById('result-num');
+  numEl.style.transition = 'opacity .12s';
+  numEl.style.opacity = '0.3';
+  setTimeout(() => { numEl.textContent = target; numEl.style.opacity = '1'; }, 80);
+
+  document.getElementById('lbm-val').textContent = lbm + ' lb';
+  document.getElementById('factor-val').textContent = currentFactor + 'g / lb LBM';
+  document.getElementById('per-meal-val').textContent = mealLow + '–' + mealHigh + 'g';
+  document.getElementById('result-sub').textContent = 'per day · ' + currentLabel;
+
+  const mealTarget = Math.round(target / 3.5);
+  const flex = document.getElementById('sources-flex');
+  if (flex) {
+    flex.innerHTML = SOURCES.map(s => {
+      const servings = Math.round((mealTarget / s.per) * 10) / 10;
+      return `<div class="src-chip"><strong>${s.name}</strong> ${servings}× ${s.unit}</div>`;
+    }).join('');
+  }
+}
+
+calcProtein();
+</script>
+<script src="mastery.js"></script>
+</body>
+</html>

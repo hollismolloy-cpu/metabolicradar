@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testing Protocol — MetabolicRadar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+.test-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start;margin-top:24px}
+.test-aside{position:sticky;top:100px;border:1px solid rgba(60,80,100,.1);border-radius:14px;background:var(--white);padding:20px}
+.test-aside h3{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;opacity:.6;margin-bottom:12px}
+.test-aside p{font-size:14px;font-weight:300;line-height:1.7;color:var(--slate);margin-bottom:16px}
+.checklist{display:grid;gap:8px;margin-top:16px}
+.check-item{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;border:1px solid rgba(60,80,100,.1);background:var(--cream);transition:background .15s;cursor:pointer}
+.check-item:hover{background:rgba(61,122,138,.06)}
+.check-item input[type="checkbox"]{width:16px;height:16px;margin-top:2px;accent-color:var(--teal);cursor:pointer;flex-shrink:0}
+.check-item .t{font-weight:500;font-size:14px;margin-bottom:2px}
+.check-item .n{font-size:13px;font-weight:300;line-height:1.55;color:var(--steel)}
+.tip{margin-top:14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(61,122,138,.15);background:rgba(61,122,138,.05);font-size:14px;font-weight:300;line-height:1.6;color:var(--slate)}
+.marker-acc{border:1px solid rgba(60,80,100,.1);border-radius:14px;background:var(--white);overflow:hidden;margin-top:10px}
+.marker-acc summary{cursor:pointer;list-style:none;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:500;background:linear-gradient(135deg,rgba(61,122,138,.05),var(--white))}
+.marker-acc summary::-webkit-details-marker{display:none}
+.marker-body{padding:14px 16px}
+.marker-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;list-style:none;padding:0}
+.marker-item{border:1px solid rgba(60,80,100,.1);border-radius:12px;background:var(--cream);padding:10px 12px}
+.marker-item strong{display:block;font-weight:500;font-size:14px;margin-bottom:2px}
+.marker-item span{display:block;font-size:13px;font-weight:300;color:var(--steel);line-height:1.5}
+.chip{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;border:1px solid rgba(60,80,100,.1);background:var(--fog);font-size:12px;font-weight:400}
+.loop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+.loop-node{border:1px solid rgba(60,80,100,.1);border-radius:14px;padding:16px;background:linear-gradient(180deg,var(--white),var(--cream))}
+.loop-node .k{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;opacity:.6;margin-bottom:8px}
+.loop-node .t{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:6px}
+.loop-node .p{font-size:13px;font-weight:300;line-height:1.55;color:var(--steel)}
+.rule{height:1px;background:rgba(60,80,100,.08);margin:40px 0}
+@media(max-width:1000px){.test-grid{grid-template-columns:1fr}.test-aside{position:relative;top:auto}.marker-list{grid-template-columns:1fr}.loop-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.loop-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="mr-nav">
+  <a class="mr-wordmark" href="index.html">Metabolic<span>Radar</span></a>
+  <div class="mr-nav-links">
+    <a href="index.html">Home</a><a href="radar.html">The Radar</a><a href="science.html">Science</a><a href="testing.html" class="active">Testing</a><a href="work-with-me.html">Work With Me</a>
+    <a class="mr-nav-course" href="/mastery/" target="_blank">Metabolic Mastery ↗</a>
+  </div>
+  <a class="mr-nav-cta" href="work-with-me.html">Get Your Radar</a>
+</nav>
+<div class="mr-shell">
+
+  <div class="mr-hero">
+    <div class="mr-kicker">Metabolic Health · Testing</div>
+    <h1>How we test<br><em>metabolic health.</em></h1>
+    <p class="mr-lead">Testing is only meaningful if it is repeatable. This page standardizes conditions so your results reflect physiology — not noise — and so your Radar comparisons across time are real.</p>
+    <div class="mr-actions">
+      <a class="mr-btn" href="#mht-prep">Prep Checklist</a>
+      <a class="mr-btn ghost" href="#mht-markers">What We Measure</a>
+      <a class="mr-btn ghost" href="work-with-me.html">Get Your Radar</a>
+    </div>
+  </div>
+
+  <div class="mr-eyebrow">Testing sequence</div>
+  <h2 class="mr-title">A defined order.</h2>
+  <div class="mr-steps">
+    <div class="mr-step"><div class="n">Step 01</div><div class="t">Standardize</div><p class="d">Same prep rules. Same timing. Same context recorded.</p></div>
+    <div class="mr-step"><div class="n">Step 02</div><div class="t">Collect</div><p class="d">Core labs + vitals + optional structure/reserve markers.</p></div>
+    <div class="mr-step"><div class="n">Step 03</div><div class="t">Score</div><p class="d">Values standardized into consistent pillar scores.</p></div>
+    <div class="mr-step"><div class="n">Step 04</div><div class="t">Re-test</div><p class="d">Repeat under the same rules. Compare pillars across time.</p></div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="test-grid">
+    <section id="mht-prep">
+      <div class="mr-eyebrow">Preparation protocol</div>
+      <h2 class="mr-title">Before you draw.</h2>
+      <p style="font-size:15px;font-weight:300;line-height:1.75;color:var(--slate);margin-bottom:16px">Consistency beats perfection. The goal is a clean baseline, not heroics.</p>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button class="mr-btn small ghost" type="button" id="mht-reset">Reset checks</button></div>
+      <div class="checklist">
+        <label class="check-item"><input type="checkbox" data-mht-check="fast"><div><p class="t">Fast 8–12 hours prior to blood draw</p><p class="n">Water is fine. Keep the morning routine consistent.</p></div></label>
+        <label class="check-item"><input type="checkbox" data-mht-check="training"><div><p class="t">Avoid hard training for 24–48 hours</p><p class="n">You want physiology — not yesterday's workout — driving the numbers.</p></div></label>
+        <label class="check-item"><input type="checkbox" data-mht-check="alcohol"><div><p class="t">Avoid alcohol for 24 hours</p><p class="n">Reduces noise in triglycerides, inflammation signals, and recovery state.</p></div></label>
+        <label class="check-item"><input type="checkbox" data-mht-check="illness"><div><p class="t">Don't test when acutely ill or injured</p><p class="n">Illness and flare-ups skew inflammatory and stress markers.</p></div></label>
+        <label class="check-item"><input type="checkbox" data-mht-check="hydration"><div><p class="t">Maintain normal hydration</p><p class="n">Don't "water load." Don't show up dehydrated. Normal is the point.</p></div></label>
+        <label class="check-item"><input type="checkbox" data-mht-check="meds"><div><p class="t">Keep meds &amp; supplements consistent</p><p class="n">If you change inputs, you change outputs — and comparisons get messy.</p></div></label>
+        <label class="check-item"><input type="checkbox" data-mht-check="context"><div><p class="t">Record context</p><p class="n">Sleep, stress, and recent training load help explain the "why" behind the numbers.</p></div></label>
+      </div>
+      <div class="tip"><strong>Blood pressure:</strong> measure seated, calm, and average multiple readings. Repeatability matters more than perfect technique.</div>
+    </section>
+    <aside class="test-aside">
+      <h3>The point of all this</h3>
+      <p>Not a one-time "score." A baseline you can repeat after an intervention — so you can prove improvement.</p>
+      <div class="mr-actions" style="flex-direction:column;gap:8px">
+        <a class="mr-btn" href="#mht-markers">View required markers</a>
+        <a class="mr-btn ghost" href="work-with-me.html">Get Your Radar</a>
+      </div>
+      <div class="mr-note" style="margin-top:14px">Coaching / education only. Not medical diagnosis or treatment.</div>
+    </aside>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="mr-eyebrow" id="mht-markers">Marker collection</div>
+  <h2 class="mr-title">What we measure.</h2>
+  <p style="font-size:15px;font-weight:300;line-height:1.75;color:var(--slate);margin-bottom:4px">The same markers must be collected each interval to allow comparison.</p>
+
+  <details class="marker-acc" open>
+    <summary><span class="chip">Core Labs (fuel + risk)</span><span class="chip">5 markers</span></summary>
+    <div class="marker-body"><ul class="marker-list">
+      <li class="marker-item"><strong>Fasting insulin</strong><span>Fuel signaling + early insulin resistance.</span></li>
+      <li class="marker-item"><strong>HbA1c</strong><span>90-day glucose exposure / glycation signal.</span></li>
+      <li class="marker-item"><strong>Triglycerides + HDL</strong><span>Used to calculate TG:HDL ratio.</span></li>
+      <li class="marker-item"><strong>ApoB</strong><span>Lipoprotein particle burden (risk context).</span></li>
+      <li class="marker-item"><strong>hs-CRP</strong><span>Inflammation load and recovery strain.</span></li>
+    </ul></div>
+  </details>
+  <details class="marker-acc">
+    <summary><span class="chip">Vitals (stress + regulation)</span><span class="chip">2 markers</span></summary>
+    <div class="marker-body"><ul class="marker-list">
+      <li class="marker-item"><strong>Blood pressure</strong><span>Measure seated, calm, average readings.</span></li>
+      <li class="marker-item"><strong>Resting heart rate</strong><span>Stress / recovery signal when measured consistently.</span></li>
+    </ul></div>
+  </details>
+  <details class="marker-acc">
+    <summary><span class="chip">Structure + reserve (preferred when available)</span><span class="chip">5 markers</span></summary>
+    <div class="marker-body"><ul class="marker-list">
+      <li class="marker-item"><strong>DXA: ALMI</strong><span>Lean mass index (structure).</span></li>
+      <li class="marker-item"><strong>Visceral adipose tissue</strong><span>Central risk / fuel partitioning context.</span></li>
+      <li class="marker-item"><strong>Body fat %</strong><span>Composition and reserve signal.</span></li>
+      <li class="marker-item"><strong>Bone density (T-score)</strong><span>Durability / structural resilience context.</span></li>
+      <li class="marker-item"><strong>Grip strength</strong><span>Simple functional reserve marker.</span></li>
+    </ul></div>
+  </details>
+
+  <div class="rule"></div>
+
+  <div class="mr-eyebrow">Re-test loop</div>
+  <h2 class="mr-title">Testing is not <em>a one-time event.</em></h2>
+  <p style="font-size:15px;font-weight:300;line-height:1.75;color:var(--slate);margin-bottom:4px">It's a feedback loop: do the work → re-test → adjust the prescription.</p>
+  <div class="loop-grid">
+    <div class="loop-node"><div class="k">Loop 01</div><div class="t">Baseline</div><p class="p">Collect markers under standardized conditions.</p></div>
+    <div class="loop-node"><div class="k">Loop 02</div><div class="t">Intervention</div><p class="p">Training + nutrition adjustments targeted to the limiting pillar.</p></div>
+    <div class="loop-node"><div class="k">Loop 03</div><div class="t">Re-test</div><p class="p">Repeat the same prep rules and marker set.</p></div>
+    <div class="loop-node"><div class="k">Loop 04</div><div class="t">Adjust</div><p class="p">Evaluate changes at the pillar level; refine the plan.</p></div>
+  </div>
+  <div class="tip" style="margin-top:16px"><strong>The goal</strong> isn't perfect numbers — it's measurable improvement over time. If the appropriate pillar improves, the intervention is working.</div>
+
+  <div style="margin-top:32px" class="mr-actions">
+    <a class="mr-btn" href="work-with-me.html">Get Your Radar</a>
+    <a class="mr-btn ghost" href="radar.html">See Example Radar</a>
+    <a class="mr-btn ghost" href="science.html">Why these markers matter</a>
+  </div>
+  <div class="mr-note">Coaching / education only. Not medical diagnosis or treatment.</div>
+</div>
+<footer><div class="mr-footer-wrap">
+  <a class="mr-footer-wordmark" href="index.html">Metabolic<span>Radar</span></a>
+  <div class="mr-footer-links"><a href="radar.html">The Radar</a><a href="science.html">Science</a><a href="testing.html">Testing</a><a href="work-with-me.html">Work With Me</a><a class="mr-footer-course" href="/mastery/" target="_blank">Metabolic Mastery ↗</a><a href="https://www.crossfitsantacruz.com/metabolic-health" target="_blank">CrossFit Santa Cruz</a></div>
+  <span class="mr-footer-note">Coaching and education only. Not medical diagnosis or treatment.</span>
+</div></footer>
+<script>
+(function(){
+  const key='mr_testing_v1';const checks=Array.from(document.querySelectorAll('input[type="checkbox"][data-mht-check]'));
+  let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){saved={}}
+  checks.forEach(c=>{const k=c.getAttribute('data-mht-check');if(saved&&typeof saved[k]==='boolean')c.checked=saved[k];c.addEventListener('change',()=>{saved[k]=c.checked;try{localStorage.setItem(key,JSON.stringify(saved))}catch(e){}})});
+  const r=document.getElementById('mht-reset');if(r){r.addEventListener('click',()=>{checks.forEach(c=>c.checked=false);saved={};try{localStorage.removeItem(key)}catch(e){}})}
+})();
+</script>
+</body>
+</html>

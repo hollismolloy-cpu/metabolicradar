@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Radar — MetabolicRadar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+.radar-grid{display:grid;grid-template-columns:minmax(0,1.2fr) 290px;gap:20px;align-items:start;margin-top:24px}
+.radar-chart-card{border:1px solid rgba(60,80,100,.1);border-radius:16px;background:var(--white);padding:16px}
+.pillar-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;justify-content:center}
+.pillar-btn{cursor:pointer;padding:7px 14px;border-radius:10px;border:1px solid rgba(60,80,100,.12);background:rgba(250,249,247,.9);font-weight:500;font-size:12px;font-family:inherit;transition:all .15s;letter-spacing:.03em}
+.pillar-btn.is-on{border-color:transparent}
+.pillar-btn[data-pillar="energy"].is-on{background:linear-gradient(135deg,rgba(183,230,167,.5),rgba(255,255,255,.8))}
+.pillar-btn[data-pillar="durability"].is-on{background:linear-gradient(135deg,rgba(243,181,143,.5),rgba(255,255,255,.8))}
+.pillar-btn[data-pillar="recovery"].is-on{background:linear-gradient(135deg,rgba(184,209,240,.6),rgba(255,255,255,.8))}
+.pillar-btn[data-pillar="all"].is-on{background:rgba(61,122,138,.1);border-color:rgba(61,122,138,.2)}
+#mhrRadarMount{width:100%;display:flex;justify-content:center}
+#mhrRadarMount svg{width:100%;height:auto;max-width:480px;display:block}
+.radar-caption{margin-top:10px;font-size:13px;line-height:1.5;color:var(--mist)}
+.radar-side{position:sticky;top:100px;border:1px solid rgba(60,80,100,.1);border-radius:14px;background:var(--white);padding:20px}
+.radar-side h3{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;opacity:.6;margin-bottom:10px}
+.constraint-title{font-family:'Cormorant',serif;font-size:20px;font-weight:500;color:var(--ink);margin-bottom:8px}
+.constraint-body{font-size:13px;font-weight:300;line-height:1.65;color:var(--slate)}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.legend-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;border:1px solid rgba(60,80,100,.1);background:var(--cream);font-size:11px}
+.legend-dot{width:10px;height:10px;border-radius:999px;flex-shrink:0}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.score-card{border:1px solid rgba(60,80,100,.1);border-radius:12px;padding:16px;background:linear-gradient(180deg,var(--white),var(--cream))}
+.score-card .k{font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:500;opacity:.6;margin-bottom:6px}
+.score-card .t{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:6px}
+.score-card .v{font-size:28px;font-weight:400;font-family:'Cormorant',serif;color:var(--ink)}
+.score-card .d{font-size:13px;font-weight:300;line-height:1.6;color:var(--steel);margin-top:6px}
+.score-card.is-constraint{border-color:rgba(61,122,138,.3);background:linear-gradient(135deg,rgba(61,122,138,.06),var(--cream))}
+#mhrChart .axisLine{stroke:rgba(28,34,48,.1);stroke-width:1.5}
+#mhrChart .poly{fill:rgba(28,34,48,.1);stroke:rgba(28,34,48,.65);stroke-width:3}
+#mhrChart .pt{fill:rgba(28,34,48,.8);stroke:#faf9f7;stroke-width:2}
+#mhrChart .score{fill:rgba(28,34,48,.8);font-size:12px;font-weight:700}
+#mhrChart .label{fill:rgba(28,34,48,.8);font-size:13px;font-weight:500}
+#mhrChart .band{opacity:.92;stroke:rgba(250,249,247,.9);stroke-width:1;stroke-linejoin:round;transition:opacity .18s ease}
+#mhrChart .axis,#mhrChart .mark{transition:opacity .18s ease}
+#mhrChart .axisLine{transition:stroke .18s ease,stroke-width .18s ease}
+#mhrChart[data-active="energy"] .axis:not([data-pillars~="energy"]),#mhrChart[data-active="energy"] .mark:not([data-pillar="energy"]),#mhrChart[data-active="energy"] .band:not([data-pillar="energy"]){opacity:.2}
+#mhrChart[data-active="durability"] .axis:not([data-pillars~="durability"]),#mhrChart[data-active="durability"] .mark:not([data-pillar="durability"]),#mhrChart[data-active="durability"] .band:not([data-pillar="durability"]){opacity:.2}
+#mhrChart[data-active="recovery"] .axis:not([data-pillars~="recovery"]),#mhrChart[data-active="recovery"] .mark:not([data-pillar="recovery"]),#mhrChart[data-active="recovery"] .band:not([data-pillar="recovery"]){opacity:.2}
+#mhrChart[data-active="energy"] .axis[data-pillars~="energy"] .axisLine{stroke:rgba(183,230,167,.9);stroke-width:2}
+#mhrChart[data-active="durability"] .axis[data-pillars~="durability"] .axisLine{stroke:rgba(243,181,143,.9);stroke-width:2}
+#mhrChart[data-active="recovery"] .axis[data-pillars~="recovery"] .axisLine{stroke:rgba(184,209,240,.9);stroke-width:2}
+@media(max-width:900px){.radar-grid{grid-template-columns:1fr}.radar-side{position:relative;top:auto}.score-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="mr-nav">
+  <a class="mr-wordmark" href="index.html">Metabolic<span>Radar</span></a>
+  <div class="mr-nav-links">
+    <a href="index.html">Home</a><a href="radar.html" class="active">The Radar</a><a href="science.html">Science</a><a href="testing.html">Testing</a><a href="work-with-me.html">Work With Me</a>
+    <a class="mr-nav-course" href="/mastery/" target="_blank">Metabolic Mastery ↗</a>
+  </div>
+  <a class="mr-nav-cta" href="work-with-me.html">Get Your Radar</a>
+</nav>
+<div class="mr-shell">
+  <div class="mr-hero">
+    <div class="mr-kicker">Metabolic Health · The Radar</div>
+    <h1>The Radar makes<br><em>constraints visible.</em></h1>
+    <p class="mr-lead">Each marker becomes a 0–100 score, grouped into metabolic capacities, then plotted. The dents show what's limiting adaptation — and what to address first.</p>
+    <div class="mr-actions">
+      <a class="mr-btn" href="#sample">See a sample Radar</a>
+      <a class="mr-btn ghost" href="work-with-me.html">Get Your Radar</a>
+      <a class="mr-btn ghost" href="testing.html">Testing Protocol</a>
+    </div>
+  </div>
+
+  <div class="mr-eyebrow" id="sample" style="margin-top:8px">Sample Radar</div>
+  <h2 class="mr-title">Click a capacity <em>to highlight it.</em></h2>
+  <p class="mr-sub" style="margin-bottom:0">The "constraint" is the lowest metabolic capacity — the place to intervene first.</p>
+  <div class="radar-grid">
+    <div class="radar-chart-card">
+      <div class="pillar-bar">
+        <button class="pillar-btn is-on" data-pillar="all" type="button">Show all</button>
+        <button class="pillar-btn" data-pillar="energy" type="button">Regulate Energy</button>
+        <button class="pillar-btn" data-pillar="durability" type="button">Recover From Stress</button>
+        <button class="pillar-btn" data-pillar="recovery" type="button">Preserve Functionality</button>
+      </div>
+      <div id="mhrRadarMount"></div>
+      <p class="radar-caption" id="mhrCaption">Sample Radar — balanced overall, with a mild constraint in <strong>Recover From Stress</strong>.</p>
+    </div>
+    <aside class="radar-side">
+      <h3>What you're looking at</h3>
+      <div class="constraint-title" id="mhrConstraintTitle">Constraint: Recover From Stress</div>
+      <p class="constraint-body" id="mhrConstraintBody">The Radar is wide where capacity is robust, and dents inward where the system is taxed. Coach the lowest metabolic capacity first.</p>
+      <div class="legend">
+        <span class="legend-chip"><span class="legend-dot" style="background:#76B3FF"></span>Fit / Target</span>
+        <span class="legend-chip"><span class="legend-dot" style="background:#A7D3C7"></span>Solid</span>
+        <span class="legend-chip"><span class="legend-dot" style="background:#E8F29F"></span>At Risk</span>
+        <span class="legend-chip"><span class="legend-dot" style="background:#F09B93"></span>Severe</span>
+      </div>
+      <div class="mr-note">The "constraint" is the metabolic capacity that limits the whole system right now.</div>
+    </aside>
+  </div>
+  <div class="score-grid" id="mhrPillarCards">
+    <div class="score-card" data-card="energy"><div class="k">Capacity 01</div><div class="t">Regulate Energy</div><div class="v" id="mhrEnergyVal">—</div><div class="d">Glucose/insulin demand + lipid risk signal.</div></div>
+    <div class="score-card" data-card="durability"><div class="k">Capacity 02</div><div class="t">Recover From Stress</div><div class="v" id="mhrDurabilityVal">—</div><div class="d">Reserve + regulation + inflammation.</div></div>
+    <div class="score-card" data-card="recovery"><div class="k">Capacity 03</div><div class="t">Preserve Functionality</div><div class="v" id="mhrRecoveryVal">—</div><div class="d">Body composition + tissue reserve.</div></div>
+  </div>
+
+  <hr class="mr-divider" style="margin:40px 0">
+  <div class="mr-eyebrow">How to read it</div>
+  <h2 class="mr-title">Four rules. <em>Fast. Coachable. Repeatable.</em></h2>
+  <div class="mr-steps">
+    <div class="mr-step"><div class="n">Rule 01</div><div class="t">Wide is good</div><p class="d">A wide, balanced shape means robust capacity across systems.</p></div>
+    <div class="mr-step"><div class="n">Rule 02</div><div class="t">Dents are constraints</div><p class="d">Inward collapse points to the capacity limiting adaptation.</p></div>
+    <div class="mr-step"><div class="n">Rule 03</div><div class="t">Coach the lowest</div><p class="d">The lowest capacity limits the whole system. Fix that first.</p></div>
+    <div class="mr-step"><div class="n">Rule 04</div><div class="t">Re-test to prove it</div><p class="d">If the right capacity improves, the intervention is correct.</p></div>
+  </div>
+
+  <hr class="mr-divider" style="margin:40px 0">
+  <div class="mr-eyebrow" id="faq">FAQ</div>
+  <h2 class="mr-title">Common questions.</h2>
+  <details><summary>Do I need DXA for the Radar?<span class="det-plus">+</span></summary><div class="det-inner">No. DXA improves Preserve Functionality context, but you can get a meaningful Radar with labs + vitals. If DXA is available, it makes the model stronger — not mandatory.</div></details>
+  <details><summary>How often should I re-test?<span class="det-plus">+</span></summary><div class="det-inner">Most people do best on a 3–6 month re-test cycle. The key is repeating conditions so you can trust the comparison.</div></details>
+  <details><summary>Can I use my own lab provider?<span class="det-plus">+</span></summary><div class="det-inner">Yes. You can source labs and imaging anywhere. I can also coordinate a requisition and/or DXA scheduling if needed.</div></details>
+  <details><summary>What do I receive?<span class="det-plus">+</span></summary><div class="det-inner">A scored Radar, capacity scores, and a written report that identifies the limiting metabolic capacity and recommended next steps.</div></details>
+
+  <div style="margin-top:32px" class="mr-actions">
+    <a class="mr-btn" href="work-with-me.html">Get Your Radar</a>
+    <a class="mr-btn ghost" href="testing.html">Prep + Marker Checklist</a>
+    <a class="mr-btn ghost" href="science.html">Why these markers matter</a>
+  </div>
+  <div class="mr-note">Coaching / education only. Not medical diagnosis or treatment.</div>
+</div>
+<footer><div class="mr-footer-wrap">
+  <a class="mr-footer-wordmark" href="index.html">Metabolic<span>Radar</span></a>
+  <div class="mr-footer-links"><a href="radar.html">The Radar</a><a href="science.html">Science</a><a href="testing.html">Testing</a><a href="work-with-me.html">Work With Me</a><a class="mr-footer-course" href="/mastery/" target="_blank">Metabolic Mastery ↗</a><a href="https://www.crossfitsantacruz.com/metabolic-health" target="_blank">CrossFit Santa Cruz</a></div>
+  <span class="mr-footer-note">Coaching and education only. Not medical diagnosis or treatment.</span>
+</div></footer>
+<script>
+function initRadar(){const mount=document.getElementById('mhrRadarMount');if(!mount){setTimeout(initRadar,50);return}const LABELS=["A1C","Fasting Insulin","TG:HDL Ratio","ApoB","VAT","Body Fat %","BMD","Grip Strength","ALMI","Blood Pressure","Resting HR","hs-CRP"];const PILLARS=[{idx:[0,1,2,3],color:"#B7E6A7",id:"energy"},{idx:[8,9,10,11],color:"#F3B58F",id:"durability"},{idx:[4,5,6,7],color:"#B8D1F0",id:"recovery"}];const axisScores=[85,80,82,85,78,75,88,85,82,80,83,90];const COLORS={grey:"#E5E5E5",white:"#FFFFFF",blue:"#76B3FF",cool:"#A7D3C7",warm:"#E8F29F",red:"#F09B93"};const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));const isOk=x=>Number.isFinite(x)&&!Number.isNaN(x);function pt(cx,cy,r,t){return[cx+r*Math.sin(t),cy-r*Math.cos(t)]}function sector(cx,cy,ri,ro,t0,t1){const[ox0,oy0]=pt(cx,cy,ro,t0),[ox1,oy1]=pt(cx,cy,ro,t1),[ix1,iy1]=pt(cx,cy,ri,t1),[ix0,iy0]=pt(cx,cy,ri,t0),lg=Math.abs(t1-t0)>Math.PI?1:0;return`M${ox0.toFixed(2)} ${oy0.toFixed(2)} A${ro.toFixed(2)} ${ro.toFixed(2)} 0 ${lg} 1 ${ox1.toFixed(2)} ${oy1.toFixed(2)} L${ix1.toFixed(2)} ${iy1.toFixed(2)} A${ri.toFixed(2)} ${ri.toFixed(2)} 0 ${lg} 0 ${ix0.toFixed(2)} ${iy0.toFixed(2)} Z`}function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function tsp(lbl){const p=String(lbl).split(" ");if(p.length===2)return`<tspan x="0" dy="-0.55em">${esc(p[0])}</tspan><tspan x="0" dy="1.1em">${esc(p[1])}</tspan>`;if(p.length===3)return`<tspan x="0" dy="-0.55em">${esc(p.slice(0,2).join(" "))}</tspan><tspan x="0" dy="1.1em">${esc(p[2])}</tspan>`;return`<tspan x="0" dy="0em">${esc(lbl)}</tspan>`}const axToPillar=i=>{const p=PILLARS.find(pp=>pp.idx.includes(i));return p?p.id:"all"};const axPillars=i=>{const s=new Set([axToPillar(i)]);if(i===0)s.add("durability");if(i===4)s.add("energy");if(i===8)s.add("recovery");return Array.from(s).join(" ")};function buildSvg(sc2){const W=560,H=560,cx=W/2,cy=H/2,margin=100,R=W/2-margin,lR=R+46,sc=v=>v/120*R;const rings=[{v:120,f:COLORS.grey},{v:110,f:COLORS.white},{v:100,f:COLORS.blue},{v:90,f:COLORS.cool},{v:50,f:COLORS.warm},{v:20,f:COLORS.red}].map(r=>`<circle cx="${cx}" cy="${cy}" r="${sc(r.v).toFixed(2)}" fill="${r.f}"/>`).join("");const r0=sc(100),r1=sc(110),N=LABELS.length,step=2*Math.PI/N;const bands=Array.from({length:N}).map((_,i)=>{const pid=axToPillar(i),pl=PILLARS.find(p=>p.id===pid),fill=pl?pl.color:COLORS.white;return`<path class="band" data-pillar="${pid}" d="${sector(cx,cy,r0,r1,i*step,(i+1)*step)}" fill="${fill}"/>`}).join("");const axes=Array.from({length:N}).map((_,i)=>{const t=i*step,[x,y]=pt(cx,cy,sc(120),t),[lx,ly]=pt(cx,cy,lR,t),pid=axToPillar(i);return`<g class="axis" data-pillar="${pid}" data-pillars="${axPillars(i)}"><line x1="${cx}" y1="${cy}" x2="${x.toFixed(2)}" y2="${y.toFixed(2)}" class="axisLine"/><text class="label" transform="translate(${lx.toFixed(2)} ${ly.toFixed(2)})" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans,sans-serif">${tsp(LABELS[i])}</text></g>`}).join("");const capped=sc2.map(v=>clamp(isOk(v)?v:0,0,100));const poly=capped.map((v,i)=>{const t=i*step,[x,y]=pt(cx,cy,sc(v),t);return`${x.toFixed(2)},${y.toFixed(2)}`}).join(" ");const ms=9,marks=capped.map((v,i)=>{const t=i*step,[x,y]=pt(cx,cy,sc(v),t),[sx,sy]=pt(cx,cy,sc(Math.min(v+6,116)),t),pid=axToPillar(i);return`<g class="mark" data-pillar="${pid}"><rect class="pt" x="${(x-ms/2).toFixed(2)}" y="${(y-ms/2).toFixed(2)}" width="${ms}" height="${ms}" transform="rotate(45 ${x.toFixed(2)} ${y.toFixed(2)})"/><text class="score" x="${sx.toFixed(2)}" y="${sy.toFixed(2)}" text-anchor="middle" dominant-baseline="middle">${Math.round(v)}</text></g>`}).join("");return`<svg id="mhrChart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img"><rect width="100%" height="100%" fill="#faf9f7"/>${rings}${bands}${axes}<polygon class="poly" points="${poly}"/>${marks}</svg>`}mount.innerHTML=buildSvg(axisScores);const avg=arr=>{const xs=arr.filter(isOk);return xs.length?(xs.reduce((a,b)=>a+b,0)/xs.length):null};const vals={energy:Math.round(avg(PILLARS[0].idx.map(i=>axisScores[i]))),durability:Math.round(avg(PILLARS[1].idx.map(i=>axisScores[i]))),recovery:Math.round(avg(PILLARS[2].idx.map(i=>axisScores[i])))};const el=id=>document.getElementById(id);if(el('mhrEnergyVal'))el('mhrEnergyVal').textContent=vals.energy;if(el('mhrDurabilityVal'))el('mhrDurabilityVal').textContent=vals.durability;if(el('mhrRecoveryVal'))el('mhrRecoveryVal').textContent=vals.recovery;const constraint=Object.keys(vals).sort((a,b)=>vals[a]-vals[b])[0];const plabel={energy:"Regulate Energy",durability:"Recover From Stress",recovery:"Preserve Functionality"}[constraint];const cardsWrap=el('mhrPillarCards');if(cardsWrap){cardsWrap.querySelectorAll('.score-card').forEach(c=>c.classList.remove('is-constraint'));const cc=cardsWrap.querySelector(`.score-card[data-card="${constraint}"]`);if(cc)cc.classList.add('is-constraint')}const bodyMap={energy:"This pattern suggests Regulate Energy is the limiter: coach nutrition structure + consistency first, then re-test.",durability:"This pattern suggests Recover From Stress is the limiter: coach sleep + load management + aerobic base, then re-test.",recovery:"This pattern suggests Preserve Functionality is the limiter: bias strength + protein adequacy + body comp strategy, then re-test on a 3–6 month cycle."};if(el('mhrConstraintTitle'))el('mhrConstraintTitle').textContent=`Constraint: ${plabel}`;if(el('mhrConstraintBody'))el('mhrConstraintBody').textContent=bodyMap[constraint]||"";if(el('mhrCaption'))el('mhrCaption').innerHTML=`Sample Radar — balanced overall, with a mild constraint in <strong>${plabel}</strong>.`;const chart=el('mhrChart'),btns=Array.from(document.querySelectorAll('.pillar-btn'));const descMap={all:{title:`Constraint: ${plabel}`,body:bodyMap[constraint]||""},energy:{title:"Regulate Energy",body:"When constrained: early bonk, unstable pacing, cravings, poor volume tolerance. First levers: nutrition structure, carb dosing, energy availability."},durability:{title:"Recover From Stress",body:"When constrained: BP/RHR elevated, sleep quality issues, slow day-to-day recovery. First levers: sleep, load management, aerobic base, alcohol reduction."},recovery:{title:"Preserve Functionality",body:"When constrained: low reserve, higher VAT, poorer body comp, grip trending down. First levers: strength bias, protein adequacy, body comp strategy."}};function setActive(p){btns.forEach(b=>b.classList.toggle('is-on',b.dataset.pillar===p));if(chart){p==='all'?chart.removeAttribute('data-active'):chart.setAttribute('data-active',p)}const desc=descMap[p]||descMap.all;if(el('mhrConstraintTitle'))el('mhrConstraintTitle').textContent=desc.title;if(el('mhrConstraintBody'))el('mhrConstraintBody').textContent=desc.body;if(cardsWrap){cardsWrap.querySelectorAll('.score-card').forEach(c=>c.classList.remove('is-constraint'));const cc=p!=='all'?cardsWrap.querySelector(`.score-card[data-card="${p}"]`):cardsWrap.querySelector(`.score-card[data-card="${constraint}"]`);if(cc)cc.classList.add('is-constraint')}}btns.forEach(b=>b.addEventListener('click',()=>setActive(b.dataset.pillar)));setActive('all')}
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',initRadar):initRadar();
+</script>
+</body>
+</html>

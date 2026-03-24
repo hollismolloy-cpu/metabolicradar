@@ -1,0 +1,111 @@
+/* =========================================================
+   MetabolicRadar.com — Shared Design System
+   Editorial style: Cormorant + DM Sans, cream, teal
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1c2230;--slate:#2e3a50;--steel:#4a5568;--mist:#8a9ab0;
+  --fog:#e8edf5;--cloud:#f4f6fa;--cream:#faf9f7;--white:#ffffff;
+  --teal:#3d7a8a;--teal2:#2d6070;--gold:#b8965a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);font-size:16px;line-height:1.65;overflow-x:hidden}
+
+/* ── GOOGLE FONTS ── */
+/* Each page imports independently so this file stays portable */
+
+/* ── NAV ── */
+.mr-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(250,249,247,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(60,80,100,.08)}
+.mr-wordmark{font-family:'Cormorant',serif;font-size:22px;font-weight:500;color:var(--ink);text-decoration:none;letter-spacing:.02em}
+.mr-wordmark span{color:var(--teal)}
+.mr-nav-links{display:flex;gap:32px;align-items:center}
+.mr-nav-links a{font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--steel);text-decoration:none;transition:color .2s}
+.mr-nav-links a:hover,.mr-nav-links a.active{color:var(--teal)}
+.mr-nav-course{font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--teal);text-decoration:none;transition:color .2s;border:1px solid rgba(61,122,138,.3);padding:6px 14px;border-radius:20px}
+.mr-nav-course:hover{background:rgba(61,122,138,.08)}
+.mr-nav-cta{font-size:13px;font-weight:500;letter-spacing:.06em;padding:9px 22px;border-radius:6px;background:var(--ink);color:var(--white);text-decoration:none;transition:background .2s,transform .1s}
+.mr-nav-cta:hover{background:var(--teal2);transform:translateY(-1px)}
+
+/* ── SHELL ── */
+.mr-shell{max-width:1120px;margin:0 auto;padding:24px 48px 80px}
+
+/* ── HERO ── */
+.mr-hero{position:relative;border:1px solid rgba(60,80,100,.1);border-radius:20px;padding:36px 40px 28px;background:linear-gradient(135deg,rgba(61,122,138,.06) 0%,transparent 50%),linear-gradient(180deg,var(--white),var(--cream));margin-bottom:20px}
+.mr-kicker{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.mr-kicker::before{content:'';display:block;width:20px;height:1px;background:var(--teal)}
+.mr-hero h1{font-family:'Cormorant',serif;font-size:clamp(34px,4.5vw,58px);font-weight:400;line-height:1.07;color:var(--ink);margin-bottom:18px;letter-spacing:-.01em}
+.mr-hero h1 em{font-style:italic;color:var(--teal)}
+.mr-lead{font-size:16px;font-weight:300;line-height:1.75;color:var(--slate);max-width:80ch;margin-bottom:24px}
+.mr-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ── BUTTONS ── */
+.mr-btn{font-size:14px;font-weight:500;letter-spacing:.04em;padding:12px 26px;border-radius:7px;background:var(--ink);color:var(--white);text-decoration:none;transition:all .2s;border:1.5px solid transparent;display:inline-block;cursor:pointer;font-family:inherit}
+.mr-btn:hover{background:var(--teal2);transform:translateY(-1px)}
+.mr-btn.ghost{background:transparent;color:var(--slate);border-color:rgba(60,80,100,.2)}
+.mr-btn.ghost:hover{border-color:var(--teal);color:var(--teal);background:transparent}
+.mr-btn.outline{background:transparent;color:var(--slate);border-color:rgba(60,80,100,.2)}
+.mr-btn.outline:hover{border-color:var(--teal);color:var(--teal);background:transparent}
+.mr-btn.small{padding:9px 18px;font-size:13px;border-radius:6px}
+
+/* ── DIVIDER ── */
+hr.mr-divider{border:none;border-top:1px solid rgba(60,80,100,.08);margin:0}
+
+/* ── SECTION ── */
+.mr-section{max-width:1120px;margin:0 auto;padding:64px 48px}
+.mr-eyebrow{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.mr-eyebrow::before{content:'';display:block;width:18px;height:1px;background:var(--teal)}
+.mr-title{font-family:'Cormorant',serif;font-size:clamp(28px,3.5vw,48px);font-weight:400;line-height:1.1;color:var(--ink);margin-bottom:12px;letter-spacing:-.01em}
+.mr-title em{font-style:italic;color:var(--teal)}
+.mr-sub{font-size:15px;font-weight:300;line-height:1.75;color:var(--slate);max-width:560px;margin-bottom:32px}
+
+/* ── CARDS / PANELS ── */
+.mr-panel{background:var(--white);border:1px solid rgba(60,80,100,.1);border-radius:14px;padding:28px;transition:border-color .2s}
+.mr-panel:hover{border-color:rgba(61,122,138,.25)}
+
+/* ── STEPS ── */
+.mr-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:32px}
+.mr-step .n{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;opacity:.65;margin-bottom:8px}
+.mr-step .t{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:8px}
+.mr-step .d{font-size:14px;font-weight:300;line-height:1.65;color:var(--steel)}
+.mr-step-num{font-family:'Cormorant',serif;font-size:48px;font-weight:300;line-height:1;color:rgba(61,122,138,.15);margin-bottom:10px}
+
+/* ── MARKER PILL ── */
+.mr-pill{font-size:11px;font-weight:400;letter-spacing:.04em;padding:4px 10px;border-radius:20px;background:var(--fog);color:var(--steel);border:1px solid rgba(60,80,100,.12);display:inline-block}
+
+/* ── NOTE ── */
+.mr-note{margin-top:16px;font-size:12px;line-height:1.55;color:rgba(28,34,48,.5);border-left:3px solid rgba(61,122,138,.2);padding-left:10px}
+
+/* ── TAG ── */
+.mr-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid rgba(60,80,100,.1);background:rgba(255,255,255,.7);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.88}
+
+/* ── FOOTER ── */
+.mr-footer-wrap{padding:32px 48px;border-top:1px solid rgba(60,80,100,.08);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.mr-footer-wordmark{font-family:'Cormorant',serif;font-size:18px;font-weight:400;color:var(--ink);text-decoration:none}
+.mr-footer-wordmark span{color:var(--teal)}
+.mr-footer-links{display:flex;gap:24px;flex-wrap:wrap}
+.mr-footer-links a{font-size:12px;color:var(--mist);text-decoration:none;letter-spacing:.04em;transition:color .2s}
+.mr-footer-links a:hover{color:var(--teal)}
+.mr-footer-course{font-size:12px;color:var(--teal);text-decoration:none;letter-spacing:.04em;transition:color .2s;font-weight:500}
+.mr-footer-course:hover{color:var(--teal2)}
+.mr-footer-note{font-size:11px;color:var(--mist);letter-spacing:.02em}
+
+/* ── DETAILS / ACCORDION ── */
+details{border:1px solid rgba(60,80,100,.1);border-radius:14px;background:var(--white);padding:14px 16px;margin-top:10px}
+summary{cursor:pointer;font-weight:500;font-size:15px;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+.det-plus{width:24px;height:24px;border-radius:8px;border:1px solid rgba(60,80,100,.12);display:flex;align-items:center;justify-content:center;font-weight:500;color:var(--teal);flex-shrink:0}
+details[open] .det-plus{background:rgba(61,122,138,.1);border-color:rgba(61,122,138,.25)}
+.det-inner{padding-top:12px;font-size:14px;font-weight:300;line-height:1.7;color:var(--slate)}
+.det-inner ul{margin:8px 0;padding-left:18px}
+.det-inner li{margin-bottom:4px}
+.det-callout{background:rgba(61,122,138,.05);border-left:2px solid rgba(61,122,138,.25);border-radius:0 8px 8px 0;padding:10px 14px;margin-top:12px;font-size:13px;line-height:1.6;color:var(--slate)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1000px){
+  .mr-nav{padding:16px 24px}.mr-nav-links{display:none}.mr-nav-course{display:none}
+  .mr-shell{padding:18px 24px 60px}
+  .mr-section{padding:48px 24px}
+  .mr-steps{grid-template-columns:1fr 1fr}
+  .mr-footer-wrap{flex-direction:column;gap:18px;padding:24px;text-align:center}.mr-footer-links{justify-content:center}
+}
+@media(max-width:600px){.mr-steps{grid-template-columns:1fr}}
