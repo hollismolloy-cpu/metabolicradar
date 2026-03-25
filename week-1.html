@@ -112,16 +112,7 @@
       <div class="video-wrap fade-in">
         <div class="video-label">Coach intro — Week 1</div>
         <div class="video-ratio">
-          <!--
-            REPLACE THIS PLACEHOLDER with your Loom or YouTube embed:
-            <iframe src="https://www.loom.com/embed/YOUR_ID" allowfullscreen></iframe>
-          -->
-          <div class="video-placeholder">
-            <div class="play-btn">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <div class="video-placeholder-text">Paste your Loom or YouTube embed here</div>
-          </div>
+          <iframe src="https://www.youtube.com/embed/FznSFoM3l6k" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
         </div>
       </div>
 
@@ -142,16 +133,22 @@
               <div class="slider-field">
                 <div class="slider-top">
                   <span class="slider-label">Body weight</span>
-                  <span class="slider-val" id="bw-val">175 lb</span>
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <input type="number" id="bw-num" min="100" max="280" value="175" style="width:60px;padding:3px 6px;border:1px solid rgba(60,80,100,.2);border-radius:6px;font-size:13px;font-weight:500;color:var(--ink);background:var(--cream);text-align:center;" oninput="document.getElementById('bw').value=this.value;calcProtein()">
+                    <span style="font-size:12px;color:var(--text-3)">lb</span>
+                  </div>
                 </div>
-                <input type="range" id="bw" min="100" max="280" value="175" step="1" oninput="calcProtein()">
+                <input type="range" id="bw" min="100" max="280" value="175" step="1" oninput="document.getElementById('bw-num').value=this.value;calcProtein()">
               </div>
               <div class="slider-field">
                 <div class="slider-top">
                   <span class="slider-label">Body fat %</span>
-                  <span class="slider-val" id="bf-val">18%</span>
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <input type="number" id="bf-num" min="5" max="40" value="18" style="width:50px;padding:3px 6px;border:1px solid rgba(60,80,100,.2);border-radius:6px;font-size:13px;font-weight:500;color:var(--ink);background:var(--cream);text-align:center;" oninput="document.getElementById('bf').value=this.value;calcProtein()">
+                    <span style="font-size:12px;color:var(--text-3)">%</span>
+                  </div>
                 </div>
-                <input type="range" id="bf" min="5" max="40" value="18" step="1" oninput="calcProtein()">
+                <input type="range" id="bf" min="5" max="40" value="18" step="1" oninput="document.getElementById('bf-num').value=this.value;calcProtein()">
                 <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-3);margin-top:4px">
                   <span>Athletic 5%</span><span>Average 25%</span><span>High 40%</span>
                 </div>
@@ -371,14 +368,7 @@
             </div>
             <span class="ch-tag tag-action">Action</span>
           </div>
-          <div class="ch-item">
-            <div class="ch-check"><div class="check-icon"><svg viewBox="0 0 14 14"><path d="M2.5 7L5.5 10L11.5 4"/></svg></div></div>
-            <div class="ch-content">
-              <div class="ch-item-title">Attend Thursday check-in at 10 AM</div>
-              <div class="ch-item-sub">In person at CrossFit Santa Cruz, or via Google Meets. Bring your protein number. This is where it gets personal.</div>
-            </div>
-            <span class="ch-tag tag-social">Check-in</span>
-          </div>
+
           <div class="ch-item">
             <div class="ch-check"><div class="check-icon"><svg viewBox="0 0 14 14"><path d="M2.5 7L5.5 10L11.5 4"/></svg></div></div>
             <div class="ch-content">
@@ -450,20 +440,22 @@
           <div class="resource-icon">📄</div>
           CrossFit Journal — Zone Diet overview
         </a>
-        <a class="resource-link" href="https://meet.google.com/bmx-xwje-qec" target="_blank" rel="noopener">
-          <div class="resource-icon">📅</div>
-          Thursday check-in — Google Meets
-        </a>
+
       </div>
 
-      <!-- Check-in form link -->
+      <!-- Check-in form -->
       <div class="sidebar-section fade-in" style="background:var(--navy);border-color:var(--navy);">
         <div class="sidebar-label" style="color:rgba(255,255,255,.45);">Weekly check-in</div>
         <div class="sidebar-title" style="color:#fff;">Submit your Week 1 log</div>
-        <div class="sidebar-body" style="color:rgba(255,255,255,.6);margin-bottom:.875rem;">Share your wins, questions, and protein numbers before Thursday at 10 AM.</div>
-        <a href="#" style="display:inline-block;padding:.5rem 1rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius);font-size:13px;color:#fff;font-weight:500;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.12)'">
-          Submit check-in →
-        </a>
+        <div class="sidebar-body" style="color:rgba(255,255,255,.6);margin-bottom:.875rem;">Share your wins, questions, and protein numbers with your coach.</div>
+        <div id="checkin-form">
+          <input type="text" id="ci-name" placeholder="Your name" style="width:100%;padding:.5rem .75rem;margin-bottom:.5rem;border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);background:rgba(255,255,255,.08);color:#fff;font-size:13px;outline:none;" onfocus="this.style.borderColor='rgba(255,255,255,.4)'" onblur="this.style.borderColor='rgba(255,255,255,.15)'" >
+          <input type="number" id="ci-protein" placeholder="Daily protein target (g)" style="width:100%;padding:.5rem .75rem;margin-bottom:.5rem;border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);background:rgba(255,255,255,.08);color:#fff;font-size:13px;outline:none;" onfocus="this.style.borderColor='rgba(255,255,255,.4)'" onblur="this.style.borderColor='rgba(255,255,255,.15)'">
+          <textarea id="ci-wins" placeholder="Biggest win this week?" rows="2" style="width:100%;padding:.5rem .75rem;margin-bottom:.5rem;border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);background:rgba(255,255,255,.08);color:#fff;font-size:13px;outline:none;resize:none;" onfocus="this.style.borderColor='rgba(255,255,255,.4)'" onblur="this.style.borderColor='rgba(255,255,255,.15)'"></textarea>
+          <textarea id="ci-questions" placeholder="Questions for your coach?" rows="2" style="width:100%;padding:.5rem .75rem;margin-bottom:.75rem;border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);background:rgba(255,255,255,.08);color:#fff;font-size:13px;outline:none;resize:none;" onfocus="this.style.borderColor='rgba(255,255,255,.4)'" onblur="this.style.borderColor='rgba(255,255,255,.15)'"></textarea>
+          <button onclick="submitCheckin()" style="width:100%;padding:.6rem 1rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius);font-size:13px;color:#fff;font-weight:500;cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'">Submit check-in →</button>
+          <div id="ci-msg" style="display:none;margin-top:.5rem;font-size:12px;color:rgba(255,255,255,.6);text-align:center;"></div>
+        </div>
       </div>
 
     </aside>
@@ -507,11 +499,39 @@ function selectLevel(el) {
   calcProtein();
 }
 
+function submitCheckin() {
+  const name = document.getElementById('ci-name').value.trim();
+  const protein = document.getElementById('ci-protein').value.trim();
+  const wins = document.getElementById('ci-wins').value.trim();
+  const questions = document.getElementById('ci-questions').value.trim();
+  const msg = document.getElementById('ci-msg');
+  if (!name) { msg.style.display='block'; msg.textContent='Please enter your name.'; return; }
+  fetch('https://contact.hollis-60a.workers.dev', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      name,
+      email: 'checkin@metabolicradar.com',
+      path: 'Week 1 Check-in',
+      message: `Protein target: ${protein}g\n\nBiggest win: ${wins}\n\nQuestions: ${questions}`
+    })
+  }).then(() => {
+    msg.style.display='block';
+    msg.style.color='rgba(180,230,180,.9)';
+    msg.textContent='Submitted! Your coach will follow up.';
+    document.getElementById('ci-name').value='';
+    document.getElementById('ci-protein').value='';
+    document.getElementById('ci-wins').value='';
+    document.getElementById('ci-questions').value='';
+  }).catch(() => {
+    msg.style.display='block';
+    msg.textContent='Something went wrong. Try emailing hollismolloy@gmail.com directly.';
+  });
+}
+
 function calcProtein() {
   const bw = parseInt(document.getElementById('bw').value);
   const bf = parseInt(document.getElementById('bf').value);
-  document.getElementById('bw-val').textContent = bw + ' lb';
-  document.getElementById('bf-val').textContent = bf + '%';
 
   const lbm = Math.round(bw * (1 - bf / 100));
   const target = Math.round(lbm * currentFactor);
